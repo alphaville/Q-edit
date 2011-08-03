@@ -1,9 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * CompoundDetails.java
  *
  * Created on Aug 1, 2011, 11:57:12 AM
@@ -39,7 +34,7 @@ public final class CompoundDetails extends javax.swing.JDialog {
     /** A return status code - returned if OK button has been pressed */
     public static final int RET_OK = 1;
     private ReportIF intFrame;
-    private Set<Conformer> CACHED_CONFORMERS;
+    
 
     public ReportIF getReportIF() {
         return intFrame;
@@ -62,19 +57,15 @@ public final class CompoundDetails extends javax.swing.JDialog {
         smilesField.setText(compound.getSmiles() != null ? compound.getSmiles() : "N/A");
         registrDateField.setText(compound.getRegistrationDate() != null ? compound.getRegistrationDate() : "N/A");
         conformersList.setModel(new DefaultListModel());        
-        try {
-            if (CACHED_CONFORMERS == null) {
-                CACHED_CONFORMERS = compound.listConformers(null);
-            }
-            if (CACHED_CONFORMERS != null && !CACHED_CONFORMERS.isEmpty()) {
-                for (Conformer conformer : CACHED_CONFORMERS) {
+        
+            
+            
+                for (Conformer conformer : compound.getConformers()) {
                     System.out.println("   L " + conformer.getUri());
                     ((DefaultListModel) conformersList.getModel()).addElement(conformer.getUri().toString());
                 }
-            }
-        } catch (ServiceInvocationException ex) {
-            Logger.getLogger(CompoundDetails.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            
+        
 
     }
 

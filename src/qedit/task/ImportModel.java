@@ -118,7 +118,7 @@ public class ImportModel extends AbstractTask {
             ex.printStackTrace();
         }
 
-
+        intFrame.setEnablePredictButtons(true);              
         return new Object();
     }
 

@@ -37,6 +37,7 @@ public class CompoundInfo extends AbstractTask {
             throw new Exception("asf");
         }
         Compound compound = spider.parse();
+        compound.getConformers();
         intFrame.getReport().setCompound(compound);
         printOutResults(compound);
         intFrame.updateCompoundFields();
@@ -49,7 +50,7 @@ public class CompoundInfo extends AbstractTask {
             }
         } else {
             QEditApp.getView().getStatusLabel().setText("Failed to load synonyms...");
-        }
+        }        
         return new Object();
     }
 
