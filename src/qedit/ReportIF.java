@@ -6,8 +6,10 @@
 package qedit;
 
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -18,6 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -45,6 +48,7 @@ import qedit.helpers.Stereo;
 import qedit.task.CompoundInfo;
 import qedit.task.ExperimentalValueRetriever;
 import qedit.task.ImportModel;
+import qedit.task.StructAnalogues;
 
 /**
  *
@@ -65,6 +69,45 @@ public class ReportIF extends javax.swing.JInternalFrame {
         this.report = report;
     }
 
+    /*
+     * UPDATERS
+     * UPDATERS
+     * UPDATERS
+     * UPDATERS
+     * 
+     * 
+     */
+    public void updateStrAnal() {
+        ArrayList<Compound> compoundsList = getReport().getStructuralAnalogues();
+        if (compoundsList == null || (compoundsList != null && compoundsList.isEmpty())) {
+            return;
+        }
+        DefaultTableModel anModel = (DefaultTableModel) getAnaloguesTable().getModel();
+        String listCompIdentifier = null;
+        for (Compound sa : compoundsList) {
+            if (sa.getIupacName() != null) {
+                listCompIdentifier = sa.getIupacName();
+            } else if (sa.getSynonyms() != null && !sa.getSynonyms().isEmpty()) {
+                listCompIdentifier = sa.getSynonyms().get(0);
+            } else if (sa.getCasrn() != null) {
+                listCompIdentifier = sa.getCasrn();
+            } else if (sa.getSmiles() != null) {
+                listCompIdentifier = sa.getSmiles();
+            } else {
+                listCompIdentifier = sa.getUri().toString();
+            }
+            anModel.addRow(new String[]{listCompIdentifier, ""});
+        }
+    }
+
+    /*
+     * METHODS
+     * METHODS
+     * METHODS
+     * METHODS
+     * 
+     * 
+     */
     public void deleteCompoundFields() {
         ImageIcon noImage = org.jdesktop.application.Application.getInstance(qedit.QEditApp.class).getContext().getResourceMap(ReportIF.class).getImageIcon("structureImage.icon");
         depiction.setIcon(noImage);
@@ -91,15 +134,12 @@ public class ReportIF extends javax.swing.JInternalFrame {
         table.clearSelection();
     }
 
-    public void updateCompoundFields() {
-        Compound compound = report.getCompound();
-        compound.setDepiction(null);
-        ImageIcon compoundIcon = compound.getDepiction(null);
-        if (compoundIcon != null) {
-            int height = depiction.getHeight();
-            int width = depiction.getWidth();
-            int imageH = compoundIcon.getIconHeight();
-            int imageW = compoundIcon.getIconWidth();
+    private void placeIconInLabel(ImageIcon icon, JLabel label, JButton refreshButton) {
+        if (icon != null) {
+            int height = label.getHeight();
+            int width = label.getWidth();
+            int imageH = icon.getIconHeight();
+            int imageW = icon.getIconWidth();
             if (imageH > 0 && imageW > 0) {
                 if (imageH > height || imageW > width) { // Scaling Needed!!!
                     double scalingFactor = Math.min((double) width / (double) imageW, (double) height / (double) imageH);
@@ -110,17 +150,26 @@ public class ReportIF extends javax.swing.JInternalFrame {
                             scaledH,
                             BufferedImage.TYPE_INT_RGB);
                     Graphics2D g2 = dst.createGraphics();
-                    g2.drawImage(compoundIcon.getImage(), 0, 0, (int) scaledW, scaledH, compoundIcon.getImageObserver());
+                    g2.drawImage(icon.getImage(), 0, 0, (int) scaledW, scaledH, icon.getImageObserver());
                     g2.dispose();
-                    depiction.setIcon(new ImageIcon(dst));
+                    label.setIcon(new ImageIcon(dst));
                 } else { // No scaling Needed!!!
-                    depiction.setIcon(compoundIcon);
+                    label.setIcon(icon);
                 }
-                getRefreshDepictionButton().setEnabled(true);
+                refreshButton.setEnabled(true);
             }
         } else {
-            getRefreshDepictionButton().setEnabled(false);
+            label.setIcon(new javax.swing.ImageIcon(getClass().
+                    getResource("/qedit/resources/NoImageIcon.jpg")));
+            refreshButton.setEnabled(false);
         }
+    }
+
+    public void updateCompoundFields() {
+        Compound compound = report.getCompound();
+        compound.setDepiction(null);
+        ImageIcon compoundIcon = compound.getDepiction(null);
+        placeIconInLabel(compoundIcon, depiction, refreshDepictionButton);
     }
 
     public void displayDiagol(JDialog dialog, JFrame jframe) {
@@ -155,7 +204,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
 
     private void accessCompoundDetails() {
         JFrame jframe = QEditApp.getView().getFrame();
-        compoundDetails = new CompoundDetails(this, jframe, true);
+        compoundDetails = new CompoundDetails(getReport().getCompound(), jframe, true);
         displayDiagol(compoundDetails, jframe);
     }
 
@@ -197,6 +246,11 @@ public class ReportIF extends javax.swing.JInternalFrame {
         }
     }
 
+    private void acquireListOfAnalogues() {
+        StructAnalogues task = new StructAnalogues(this);
+        task.runInBackground();
+    }
+
     public void setEnabledModelDetailsButtons(boolean enable) {
         modelDetails.setEnabled(enable);
         algorithmDetails.setEnabled(enable);
@@ -220,6 +274,14 @@ public class ReportIF extends javax.swing.JInternalFrame {
      * GETTERS
      * 
      */
+    public JTable getAnaloguesTable() {
+        return analoguesTable;
+    }
+
+    public JTextField getSimilarityField() {
+        return similarityField;
+    }
+
     public JTextField getModelUriField() {
         return modelUriField;
     }
@@ -371,6 +433,31 @@ public class ReportIF extends javax.swing.JInternalFrame {
         jTextArea12 = new javax.swing.JTextArea();
         jLabel18 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
+        jTabbedPane4 = new javax.swing.JTabbedPane();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
+        jLabel23 = new javax.swing.JLabel();
+        doaResultLabel = new javax.swing.JLabel();
+        jPanel13 = new javax.swing.JPanel();
+        jToolBar4 = new javax.swing.JToolBar();
+        jLabel20 = new javax.swing.JLabel();
+        similarityField = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
+        strAnDetails = new javax.swing.JButton();
+        jScrollPane14 = new javax.swing.JScrollPane();
+        analoguesTable = new javax.swing.JTable();
+        jScrollPane15 = new javax.swing.JScrollPane();
+        jTextArea13 = new javax.swing.JTextArea();
+        jLabel19 = new javax.swing.JLabel();
+        jPanel15 = new javax.swing.JPanel();
+        jToolBar5 = new javax.swing.JToolBar();
+        refreshStrAnDepiction = new javax.swing.JButton();
+        strAnDepiction = new javax.swing.JLabel();
+        jPanel14 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jTextArea6 = new javax.swing.JTextArea();
@@ -498,7 +585,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
             .addGroup(depictionPanelLayout.createSequentialGroup()
                 .addComponent(depictionToolbar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(depiction, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                .addComponent(depiction, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -608,7 +695,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
             .addGroup(synonymsPanelLayout.createSequentialGroup()
                 .addComponent(synonymsToolbar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(synonymsScollable, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                .addComponent(synonymsScollable, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -640,7 +727,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(synonymsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(depictionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(14, 14, 14))
         );
 
         basePanel.addTab("Compound", compoundTab);
@@ -840,7 +927,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
                             .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, 0, 0, Short.MAX_VALUE))
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Authorship", jPanel1);
@@ -903,7 +990,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Report", jPanel2);
@@ -916,7 +1003,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
         );
         generalTabLayout.setVerticalGroup(
             generalTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
         );
 
         basePanel.addTab("General", generalTab);
@@ -1111,7 +1198,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
                     .addComponent(modelUriField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Model Info", jPanel7);
@@ -1166,7 +1253,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("QMRF Report", jPanel8);
@@ -1179,7 +1266,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+            .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
         );
 
         basePanel.addTab("Model", jPanel3);
@@ -1323,8 +1410,8 @@ public class ReportIF extends javax.swing.JInternalFrame {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane12)
                     .addComponent(jScrollPane11)
+                    .addComponent(jScrollPane12)
                     .addComponent(jLabel2)
                     .addComponent(jLabel17, 0, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1343,12 +1430,12 @@ public class ReportIF extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE))
-                    .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE))
+                        .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
+                    .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -1362,25 +1449,250 @@ public class ReportIF extends javax.swing.JInternalFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+            .addComponent(jTabbedPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
         );
 
         basePanel.addTab("Prediction", jPanel4);
 
         jPanel5.setName("jPanel5"); // NOI18N
 
+        jTabbedPane4.setName("jTabbedPane4"); // NOI18N
+
+        jPanel12.setName("jPanel12"); // NOI18N
+
+        jLabel21.setText("Name of the applicability domain algorithm used :");
+        jLabel21.setName("jLabel21"); // NOI18N
+
+        jTextField4.setName("jTextField4"); // NOI18N
+
+        jLabel22.setText("Link to applicability domain algorithm :");
+        jLabel22.setName("jLabel22"); // NOI18N
+
+        jTextField5.setName("jTextField5"); // NOI18N
+
+        jLabel23.setText("Applicability Domain Result :");
+        jLabel23.setName("jLabel23"); // NOI18N
+
+        doaResultLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qedit/resources/dialog-ok-apply.png"))); // NOI18N
+        doaResultLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        doaResultLabel.setName("doaResultLabel"); // NOI18N
+        doaResultLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                doaResultLabelMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jTextField4)
+                        .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel22)
+                        .addComponent(jTextField5))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabel23)
+                        .addGap(18, 18, 18)
+                        .addComponent(doaResultLabel)))
+                .addContainerGap(271, Short.MAX_VALUE))
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel23)
+                    .addComponent(doaResultLabel))
+                .addContainerGap(159, Short.MAX_VALUE))
+        );
+
+        jTabbedPane4.addTab("Reliability", jPanel12);
+
+        jPanel13.setName("jPanel13"); // NOI18N
+
+        jToolBar4.setFloatable(false);
+        jToolBar4.setRollover(true);
+        jToolBar4.setName("jToolBar4"); // NOI18N
+
+        jLabel20.setText(" Similarity Level :  ");
+        jLabel20.setName("jLabel20"); // NOI18N
+        jToolBar4.add(jLabel20);
+
+        similarityField.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        similarityField.setText("0.95");
+        similarityField.setName("similarityField"); // NOI18N
+        similarityField.setPreferredSize(new java.awt.Dimension(100, 27));
+        jToolBar4.add(similarityField);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qedit/resources/vcs_update.png"))); // NOI18N
+        jButton1.setText("Acquire List");
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setName("jButton1"); // NOI18N
+        jButton1.setPreferredSize(new java.awt.Dimension(100, 49));
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jToolBar4.add(jButton1);
+
+        jSeparator2.setName("jSeparator2"); // NOI18N
+        jToolBar4.add(jSeparator2);
+
+        strAnDetails.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qedit/resources/draw-spiral.png"))); // NOI18N
+        strAnDetails.setText("Compound Info");
+        strAnDetails.setEnabled(false);
+        strAnDetails.setFocusable(false);
+        strAnDetails.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        strAnDetails.setName("strAnDetails"); // NOI18N
+        strAnDetails.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar4.add(strAnDetails);
+
+        jScrollPane14.setName("jScrollPane14"); // NOI18N
+
+        analoguesTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Compound", "Experimental Value"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        analoguesTable.setName("analoguesTable"); // NOI18N
+        analoguesTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        analoguesTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                analoguesTableMouseClicked(evt);
+            }
+        });
+        jScrollPane14.setViewportView(analoguesTable);
+
+        jScrollPane15.setName("jScrollPane15"); // NOI18N
+
+        jTextArea13.setColumns(20);
+        jTextArea13.setRows(5);
+        jTextArea13.setName("jTextArea13"); // NOI18N
+        jScrollPane15.setViewportView(jTextArea13);
+
+        jLabel19.setText("3.3.c. Considerations on structural analogues");
+        jLabel19.setName("jLabel19"); // NOI18N
+
+        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder("Depiction"));
+        jPanel15.setName("jPanel15"); // NOI18N
+
+        jToolBar5.setFloatable(false);
+        jToolBar5.setRollover(true);
+        jToolBar5.setName("jToolBar5"); // NOI18N
+
+        refreshStrAnDepiction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qedit/resources/view-refresh.png"))); // NOI18N
+        refreshStrAnDepiction.setEnabled(false);
+        refreshStrAnDepiction.setFocusable(false);
+        refreshStrAnDepiction.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        refreshStrAnDepiction.setName("refreshStrAnDepiction"); // NOI18N
+        refreshStrAnDepiction.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar5.add(refreshStrAnDepiction);
+
+        strAnDepiction.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        strAnDepiction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qedit/resources/NoImageIcon.jpg"))); // NOI18N
+        strAnDepiction.setName("strAnDepiction"); // NOI18N
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar5, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+            .addComponent(strAnDepiction, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addComponent(jToolBar5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(strAnDepiction, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar4, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+                    .addComponent(jScrollPane14, 0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+                        .addComponent(jScrollPane14, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel19)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE))
+                    .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        jTabbedPane4.addTab("Structural Analogues", jPanel13);
+
+        jPanel14.setName("jPanel14"); // NOI18N
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 601, Short.MAX_VALUE)
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 318, Short.MAX_VALUE)
+        );
+
+        jTabbedPane4.addTab("Domains", jPanel14);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 613, Short.MAX_VALUE)
+            .addComponent(jTabbedPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 341, Short.MAX_VALUE)
+            .addComponent(jTabbedPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
         );
 
-        basePanel.addTab("DoA", jPanel5);
+        basePanel.addTab("Applicability", jPanel5);
 
         jPanel6.setName("jPanel6"); // NOI18N
 
@@ -1434,20 +1746,21 @@ public class ReportIF extends javax.swing.JInternalFrame {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel13)
-                            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
+                            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel14)
-                            .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE))))
-                .addGap(12, 12, 12))
+                            .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1457,23 +1770,20 @@ public class ReportIF extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE))
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(jLabel14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)))
-                .addGap(18, 18, 18))
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
         );
 
         basePanel.addTab("Discussion", jPanel6);
@@ -1482,11 +1792,11 @@ public class ReportIF extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(basePanel)
+            .addComponent(basePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(basePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
+            .addComponent(basePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
         );
 
         pack();
@@ -1662,12 +1972,45 @@ public class ReportIF extends javax.swing.JInternalFrame {
         ExperimentalValueRetriever task = new ExperimentalValueRetriever(this);
         task.runInBackground();
     }//GEN-LAST:event_dwnLoadExpValueButtonActionPerformed
+
+    private void doaResultLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_doaResultLabelMouseClicked
+        if (!doaIconChanger) {
+            doaResultLabel.setIcon(ImageDoA_NO);
+        } else {
+            doaResultLabel.setIcon(ImageDoA_OK);
+        }
+        doaIconChanger = !doaIconChanger;
+
+    }//GEN-LAST:event_doaResultLabelMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        acquireListOfAnalogues();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void displayImageStructAnalogue() {
+        int index = analoguesTable.getSelectedRow();
+        ImageIcon saImage = getReport().getStructuralAnalogues().get(index).getDepiction(null);
+        placeIconInLabel(saImage, strAnDepiction, refreshStrAnDepiction);
+    }
+
+    private void analoguesTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_analoguesTableMouseClicked
+//        displayImageStructAnalogue();
+        boolean enableStrAnDetailsButton = MouseEvent.BUTTON1 == evt.getButton()
+                && analoguesTable.getSelectedRowCount() > 0;
+        strAnDetails.setEnabled(enableStrAnDetailsButton);
+        if (enableStrAnDetailsButton) {
+            displayImageStructAnalogue();
+        }
+
+    }//GEN-LAST:event_analoguesTableMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addAuthorButton;
     private javax.swing.JButton addSynonymButton;
     private javax.swing.JLabel addressLabel;
     private javax.swing.JLabel affilLabel;
     private javax.swing.JButton algorithmDetails;
+    private javax.swing.JTable analoguesTable;
     private javax.swing.JLabel authAddressField;
     private javax.swing.JLabel authAffiliationField;
     private javax.swing.JLabel authWebPageField;
@@ -1682,12 +2025,14 @@ public class ReportIF extends javax.swing.JInternalFrame {
     private javax.swing.JLabel depiction;
     private javax.swing.JPanel depictionPanel;
     private javax.swing.JToolBar depictionToolbar;
+    private javax.swing.JLabel doaResultLabel;
     private javax.swing.JButton dwnLoadExpValueButton;
     private javax.swing.JLabel emailField;
     private javax.swing.JLabel emailLabel;
     private javax.swing.JTextField expValueField;
     private javax.swing.JTextField expValueUnitsField;
     private javax.swing.JPanel generalTab;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;
@@ -1704,7 +2049,12 @@ public class ReportIF extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1715,6 +2065,10 @@ public class ReportIF extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1728,6 +2082,8 @@ public class ReportIF extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane13;
+    private javax.swing.JScrollPane jScrollPane14;
+    private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -1737,13 +2093,16 @@ public class ReportIF extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
+    private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea10;
     private javax.swing.JTextArea jTextArea11;
     private javax.swing.JTextArea jTextArea12;
+    private javax.swing.JTextArea jTextArea13;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextArea jTextArea4;
@@ -1754,9 +2113,13 @@ public class ReportIF extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea jTextArea9;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
     private javax.swing.JToolBar jToolBar3;
+    private javax.swing.JToolBar jToolBar4;
+    private javax.swing.JToolBar jToolBar5;
     private javax.swing.JLabel labelModelUri;
     private javax.swing.JButton loadCompoundButton;
     private javax.swing.JButton loadModelButton;
@@ -1769,10 +2132,14 @@ public class ReportIF extends javax.swing.JInternalFrame {
     private javax.swing.JButton predFeatDetails;
     private javax.swing.JButton predictButton;
     private javax.swing.JButton refreshDepictionButton;
+    private javax.swing.JButton refreshStrAnDepiction;
     private javax.swing.JButton removeAllSynonymsButton;
     private javax.swing.JButton removeAuthorButton;
     private javax.swing.JButton removeSynonymButton;
+    private javax.swing.JTextField similarityField;
     private javax.swing.JButton stereoFeaturesButton;
+    private javax.swing.JLabel strAnDepiction;
+    private javax.swing.JButton strAnDetails;
     private javax.swing.JList synonymsList;
     private javax.swing.JPanel synonymsPanel;
     private javax.swing.JScrollPane synonymsScollable;
@@ -1783,4 +2150,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
     private QprfReport report = new QprfReport();
     private CompoundDetails compoundDetails;
     private Map<String, QprfAuthor> AUTHORS_MAP = new HashMap<String, QprfAuthor>();
+    boolean doaIconChanger = false;
+    private ImageIcon ImageDoA_OK = new javax.swing.ImageIcon(getClass().getResource("/qedit/resources/dialog-ok-apply.png")); // NOI18N    
+    private ImageIcon ImageDoA_NO = new javax.swing.ImageIcon(getClass().getResource("/qedit/resources/edit-delete.png")); // NOI18N    
 }

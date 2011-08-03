@@ -33,21 +33,15 @@ public final class CompoundDetails extends javax.swing.JDialog {
     public static final int RET_CANCEL = 0;
     /** A return status code - returned if OK button has been pressed */
     public static final int RET_OK = 1;
-    private ReportIF intFrame;
-    
+    private Compound compound;
 
-    public ReportIF getReportIF() {
-        return intFrame;
+    public void setCompound(Compound compound) {
+        this.compound = compound;
     }
 
-    public void setReportIF(ReportIF intFrame) {
-        this.intFrame = intFrame;
-    }
-
-    public CompoundDetails(ReportIF reportIFObject, java.awt.Frame parent, boolean modal) {
+    public CompoundDetails(Compound compound, java.awt.Frame parent, boolean modal) {
         this(parent, modal);
-        setReportIF(reportIFObject);
-        Compound compound = intFrame.getReport().getCompound();
+        setCompound(compound);
         uriField.setText(compound.getUri() != null ? compound.getUri().toString() : "N/A");
         casField.setText(compound.getCasrn() != null ? compound.getCasrn() : "N/A");
         einecsField.setText(compound.getEinecs() != null ? compound.getEinecs() : "N/A");
@@ -56,16 +50,16 @@ public final class CompoundDetails extends javax.swing.JDialog {
         iupacField.setText(compound.getIupacName() != null ? compound.getIupacName() : "N/A");
         smilesField.setText(compound.getSmiles() != null ? compound.getSmiles() : "N/A");
         registrDateField.setText(compound.getRegistrationDate() != null ? compound.getRegistrationDate() : "N/A");
-        conformersList.setModel(new DefaultListModel());        
-        
-            
-            
-                for (Conformer conformer : compound.getConformers()) {
-                    System.out.println("   L " + conformer.getUri());
-                    ((DefaultListModel) conformersList.getModel()).addElement(conformer.getUri().toString());
-                }
-            
-        
+        conformersList.setModel(new DefaultListModel());
+
+
+
+        for (Conformer conformer : compound.getConformers()) {
+            System.out.println("   L " + conformer.getUri());
+            ((DefaultListModel) conformersList.getModel()).addElement(conformer.getUri().toString());
+        }
+
+
 
     }
 
