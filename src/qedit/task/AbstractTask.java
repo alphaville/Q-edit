@@ -60,8 +60,8 @@ public abstract class AbstractTask extends org.jdesktop.application.Task {
             outputMessage = "Task \"" + taskName + "\" was cancelled";
         } else if (failed) {
             outputMessage = "Task \"" + taskName + "\" FAILED!!!";
-            if (exceptionMessage!=null){
-                outputMessage += " - "+exceptionMessage;
+            if (exceptionMessage != null) {
+                outputMessage += " - " + exceptionMessage;
             }
         } else {
             outputMessage = "Task \"" + taskName + "\" completed.";

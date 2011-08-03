@@ -5,9 +5,11 @@
 package qedit.task;
 
 import java.net.URISyntaxException;
+import java.util.List;
 import javax.swing.JFrame;
 import org.opentox.toxotis.client.VRI;
 import org.opentox.toxotis.core.component.Algorithm;
+import org.opentox.toxotis.core.component.Feature;
 import org.opentox.toxotis.core.component.Model;
 import org.opentox.toxotis.exceptions.ISecurityException;
 import org.opentox.toxotis.exceptions.impl.ServiceInvocationException;
@@ -91,6 +93,17 @@ public class ImportModel extends AbstractTask {
                 }
             }
         }
+        /*
+         * Load predicted and dependent feature from the remote locations:
+         */
+        List<Feature> depFeatures = model.getDependentFeatures();
+        if (depFeatures != null && !depFeatures.isEmpty()) {
+            depFeatures.get(0).loadFromRemote(QEditApp.getAuthentication());
+        }
+        List<Feature> predFeatures = model.getPredictedFeatures();
+        if (predFeatures != null && !predFeatures.isEmpty()) {
+            predFeatures.get(0).loadFromRemote(QEditApp.getAuthentication());
+        }
         intFrame.getReport().setModel(model);
         intFrame.setEnabledModelDetailsButtons(true);
         /*
@@ -104,6 +117,7 @@ public class ImportModel extends AbstractTask {
         } catch (ServiceInvocationException ex) {
             ex.printStackTrace();
         }
+
 
         return new Object();
     }

@@ -117,6 +117,8 @@ public final class ModelDetailsDialog extends javax.swing.JDialog {
                         p.getScope().toString(), 
                         p.getTypedValue().getType()!=null?p.getTypedValue().getType().getURI().split("#")[1] :""});
                 }
+            }else{                
+                modelParamTable.setEnabled(false);
             }
         } else {
             System.out.println("!!!! Model is Null !!!");
@@ -157,7 +159,7 @@ public final class ModelDetailsDialog extends javax.swing.JDialog {
 
         okButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        modelParamsTabPanel = new javax.swing.JTabbedPane();
         generalPanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -199,7 +201,7 @@ public final class ModelDetailsDialog extends javax.swing.JDialog {
             }
         });
 
-        jTabbedPane1.setName("jTabbedPane1"); // NOI18N
+        modelParamsTabPanel.setName("modelParamsTabPanel"); // NOI18N
 
         generalPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("General"));
         generalPanel.setName("generalPanel"); // NOI18N
@@ -309,7 +311,7 @@ public final class ModelDetailsDialog extends javax.swing.JDialog {
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("General", generalPanel);
+        modelParamsTabPanel.addTab("General", generalPanel);
 
         modParamsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Model Parameters"));
         modParamsPanel.setName("modParamsPanel"); // NOI18N
@@ -348,7 +350,7 @@ public final class ModelDetailsDialog extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Model Parameters", modParamsPanel);
+        modelParamsTabPanel.addTab("Model Parameters", modParamsPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -360,7 +362,7 @@ public final class ModelDetailsDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cancelButton)
                 .addContainerGap())
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
+            .addComponent(modelParamsTabPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cancelButton, okButton});
@@ -368,7 +370,7 @@ public final class ModelDetailsDialog extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(modelParamsTabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton)
@@ -433,9 +435,9 @@ public final class ModelDetailsDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel modParamsPanel;
     private javax.swing.JTable modelParamTable;
+    private javax.swing.JTabbedPane modelParamsTabPanel;
     private javax.swing.JTextField modelTitleField;
     private javax.swing.JTextField modelUriField;
     private javax.swing.JButton okButton;

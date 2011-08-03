@@ -25,12 +25,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="basePanel" alignment="0" pref="615" max="32767" attributes="0"/>
+          <Component id="basePanel" alignment="0" pref="595" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="basePanel" alignment="0" pref="364" max="32767" attributes="0"/>
+          <Component id="basePanel" alignment="0" pref="378" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -62,13 +62,13 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="synonymsPanel" max="32767" attributes="1"/>
                           <Component id="coumpoundIdentifierLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="compoundIdentifier" alignment="0" pref="231" max="32767" attributes="1"/>
+                          <Component id="compoundIdentifier" alignment="0" pref="235" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="depictionPanel" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
-                  <Component id="compoundToolbar" alignment="0" pref="603" max="32767" attributes="0"/>
+                  <Component id="compoundToolbar" alignment="0" pref="583" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -124,7 +124,10 @@
                       <Image iconType="3" name="/qedit/resources/documentation.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Details"/>
-                    <Property name="toolTipText" type="java.lang.String" value="Access downloaded compound details"/>
+                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&lt;p width=&quot;300&quot;&gt;Access downloaded compound details&lt;/p&gt;"/>
+                    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                      <Color id="Hand Cursor"/>
+                    </Property>
                     <Property name="enabled" type="boolean" value="false"/>
                     <Property name="focusable" type="boolean" value="false"/>
                     <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -141,7 +144,10 @@
                       <Image iconType="3" name="/qedit/resources/draw-spiral.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Stereo"/>
-                    <Property name="toolTipText" type="java.lang.String" value="View/Edit stereochemical features"/>
+                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&lt;p width=&quot;300&quot;&gt;View/Edit notes on the stereochemical features of the compound that might affect the reliability of the prediction&lt;/p&gt;"/>
+                    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                      <Color id="Hand Cursor"/>
+                    </Property>
                     <Property name="enabled" type="boolean" value="false"/>
                     <Property name="focusable" type="boolean" value="false"/>
                     <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -160,7 +166,10 @@
                   <ComponentRef name="compoundIdentifier"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Compound Identifier :"/>
-                <Property name="toolTipText" type="java.lang.String" value="Any identifier of the compound (IUPAC Name, SMILES, etc)"/>
+                <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&lt;p width=&quot;300&quot;&gt;Any identifier of the compound (IUPAC Name, SMILES, CAS-RN, etc)"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
+                </Property>
                 <Property name="name" type="java.lang.String" value="coumpoundIdentifierLabel" noResource="true"/>
               </Properties>
             </Component>
@@ -185,10 +194,10 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="depictionToolbar" alignment="0" pref="318" max="32767" attributes="0"/>
+                      <Component id="depictionToolbar" alignment="0" pref="294" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="12" pref="12" max="12" attributes="0"/>
-                          <Component id="depiction" pref="294" max="32767" attributes="0"/>
+                          <Component id="depiction" pref="270" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -198,7 +207,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="depictionToolbar" min="-2" pref="25" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="depiction" pref="181" max="32767" attributes="0"/>
+                          <Component id="depiction" pref="195" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -237,6 +246,7 @@
                     <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/qedit/resources/NoImageIcon.jpg"/>
                     </Property>
+                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&lt;p width=&quot;300&quot;&gt;Depiction of the compound retrieved from AMBIT&lt;/p&gt;"/>
                     <Property name="name" type="java.lang.String" value="depiction" noResource="true"/>
                   </Properties>
                 </Component>
@@ -255,7 +265,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="synonymsToolbar" alignment="0" pref="219" max="32767" attributes="0"/>
+                      <Component id="synonymsToolbar" alignment="0" pref="223" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <EmptySpace min="12" pref="12" max="12" attributes="0"/>
                           <Component id="synonymsScollable" min="0" pref="0" max="32767" attributes="1"/>
@@ -268,7 +278,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="synonymsToolbar" min="-2" pref="25" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="synonymsScollable" pref="125" max="32767" attributes="1"/>
+                          <Component id="synonymsScollable" pref="139" max="32767" attributes="1"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -326,6 +336,10 @@
                         <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/qedit/resources/list-remove.png"/>
                         </Property>
+                        <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&lt;p width=&quot;300&quot;&gt;Remove the selected synonym(s) from the list&lt;/p&gt;"/>
+                        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                          <Color id="Hand Cursor"/>
+                        </Property>
                         <Property name="enabled" type="boolean" value="false"/>
                         <Property name="focusable" type="boolean" value="false"/>
                         <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -341,6 +355,10 @@
                         <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/qedit/resources/trash-empty.png"/>
                         </Property>
+                        <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&lt;p width=&quot;300&quot;&gt;Empty the list of synonyms - delete all&lt;/p&gt;"/>
+                        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                          <Color id="Hand Cursor"/>
+                        </Property>
                         <Property name="focusable" type="boolean" value="false"/>
                         <Property name="horizontalTextPosition" type="int" value="0"/>
                         <Property name="name" type="java.lang.String" value="removeAllSynonymsButton" noResource="true"/>
@@ -348,6 +366,47 @@
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeAllSynonymsButtonActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JToolBar$Separator" name="jSeparator1">
+                      <Properties>
+                        <Property name="name" type="java.lang.String" value="jSeparator1" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="moveCompoundUpButton">
+                      <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/qedit/resources/go-up-search.png"/>
+                        </Property>
+                        <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&lt;p width=&quot;300&quot;&gt;Move all selected synonyms one position up&lt;/p&gt;"/>
+                        <Property name="autoscrolls" type="boolean" value="true"/>
+                        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                          <Color id="Hand Cursor"/>
+                        </Property>
+                        <Property name="enabled" type="boolean" value="false"/>
+                        <Property name="focusable" type="boolean" value="false"/>
+                        <Property name="horizontalTextPosition" type="int" value="0"/>
+                        <Property name="name" type="java.lang.String" value="moveCompoundUpButton" noResource="true"/>
+                        <Property name="verticalTextPosition" type="int" value="3"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="moveCompoundUpButtonActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="moveCompoundDownButton">
+                      <Properties>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/qedit/resources/go-down-search.png"/>
+                        </Property>
+                        <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&lt;p width=&quot;300&quot;&gt;Move all selected synonyms one position down&lt;/p&gt;"/>
+                        <Property name="enabled" type="boolean" value="false"/>
+                        <Property name="focusable" type="boolean" value="false"/>
+                        <Property name="horizontalTextPosition" type="int" value="0"/>
+                        <Property name="name" type="java.lang.String" value="moveCompoundDownButton" noResource="true"/>
+                        <Property name="verticalTextPosition" type="int" value="3"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="moveCompoundDownButtonActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>
@@ -371,12 +430,12 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jTabbedPane1" alignment="0" pref="603" max="32767" attributes="0"/>
+                  <Component id="jTabbedPane1" alignment="0" pref="583" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jTabbedPane1" alignment="0" pref="321" max="32767" attributes="0"/>
+                  <Component id="jTabbedPane1" alignment="0" pref="335" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -403,7 +462,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jToolBar1" alignment="0" pref="591" max="32767" attributes="0"/>
+                          <Component id="jToolBar1" alignment="0" pref="571" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -430,10 +489,10 @@
                                       </Group>
                                       <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="authAddressField" pref="211" max="32767" attributes="1"/>
-                                          <Component id="authAffiliationField" pref="211" max="32767" attributes="1"/>
-                                          <Component id="emailField" alignment="0" pref="211" max="32767" attributes="1"/>
-                                          <Component id="authWebPageField" alignment="0" pref="211" max="32767" attributes="1"/>
+                                          <Component id="authAddressField" pref="191" max="32767" attributes="1"/>
+                                          <Component id="authAffiliationField" pref="191" max="32767" attributes="1"/>
+                                          <Component id="emailField" alignment="0" pref="191" max="32767" attributes="1"/>
+                                          <Component id="authWebPageField" alignment="0" pref="191" max="32767" attributes="1"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -478,7 +537,7 @@
                                   </Group>
                                   <Component id="jScrollPane1" min="0" pref="0" max="32767" attributes="1"/>
                               </Group>
-                              <EmptySpace pref="69" max="32767" attributes="0"/>
+                              <EmptySpace pref="83" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -499,6 +558,7 @@
                             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="new DefaultListModel()" type="code"/>
                             </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&lt;p width=&quot;300&quot;&gt;List of authors - click on an author to view details&lt;/p&gt;"/>
                             <Property name="name" type="java.lang.String" value="authorsList" noResource="true"/>
                           </Properties>
                           <Events>
@@ -510,6 +570,7 @@
                     <Component class="javax.swing.JLabel" name="jLabel1">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="List of Authors:"/>
+                        <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&lt;p width=&quot;300&quot;&gt;List of authors of the QPRF report - click on each to view the details on the right&lt;/p&gt;"/>
                         <Property name="name" type="java.lang.String" value="jLabel1" noResource="true"/>
                       </Properties>
                     </Component>
@@ -528,6 +589,7 @@
                               <Image iconType="3" name="/qedit/resources/list-add-user.png"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Add Author"/>
+                            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&lt;p width=&quot;300&quot;&gt;Add a new author for the QprfReport&lt;/p&gt;"/>
                             <Property name="focusable" type="boolean" value="false"/>
                             <Property name="horizontalTextPosition" type="int" value="0"/>
                             <Property name="name" type="java.lang.String" value="addAuthorButton" noResource="true"/>
@@ -543,6 +605,7 @@
                               <Image iconType="3" name="/qedit/resources/list-remove-user.png"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Remove Author"/>
+                            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&lt;p width=&quot;300&quot;&gt;Remove the selected authors from the list&lt;/p&gt;"/>
                             <Property name="enabled" type="boolean" value="false"/>
                             <Property name="focusable" type="boolean" value="false"/>
                             <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -559,12 +622,16 @@
                               <Image iconType="3" name="/qedit/resources/go-up-search.png"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Move up"/>
+                            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&lt;p width=&quot;300&quot;&gt;Move all selected authors one position up&lt;/p&gt;"/>
                             <Property name="enabled" type="boolean" value="false"/>
                             <Property name="focusable" type="boolean" value="false"/>
                             <Property name="horizontalTextPosition" type="int" value="0"/>
                             <Property name="name" type="java.lang.String" value="moveUpAuthor" noResource="true"/>
                             <Property name="verticalTextPosition" type="int" value="3"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="moveUpAuthorActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="moveDownAuthor">
                           <Properties>
@@ -572,12 +639,16 @@
                               <Image iconType="3" name="/qedit/resources/go-down-search.png"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Move down"/>
+                            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&lt;p width=&quot;300&quot;&gt;Move all selected authors one position lower&lt;/p&gt;"/>
                             <Property name="enabled" type="boolean" value="false"/>
                             <Property name="focusable" type="boolean" value="false"/>
                             <Property name="horizontalTextPosition" type="int" value="0"/>
                             <Property name="name" type="java.lang.String" value="moveDownAuthor" noResource="true"/>
                             <Property name="verticalTextPosition" type="int" value="3"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="moveDownAuthorActionPerformed"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -711,7 +782,7 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="166" max="32767" attributes="0"/>
+                              <EmptySpace pref="146" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -730,7 +801,7 @@
                                   <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                                   <Component id="jScrollPane3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="34" max="32767" attributes="0"/>
+                              <EmptySpace pref="48" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -817,12 +888,12 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jTabbedPane2" alignment="0" pref="603" max="32767" attributes="0"/>
+                  <Component id="jTabbedPane2" alignment="0" pref="583" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jTabbedPane2" alignment="0" pref="321" max="32767" attributes="0"/>
+                  <Component id="jTabbedPane2" alignment="0" pref="335" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -849,7 +920,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jToolBar2" alignment="0" pref="591" max="32767" attributes="0"/>
+                          <Component id="jToolBar2" alignment="0" pref="571" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -860,7 +931,7 @@
                                       <Component id="modelUriField" min="-2" pref="327" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="113" max="32767" attributes="0"/>
+                              <EmptySpace pref="93" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -875,7 +946,7 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="30" max="32767" attributes="0"/>
+                              <EmptySpace pref="44" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -910,6 +981,10 @@
                               <Image iconType="3" name="/qedit/resources/download.png"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Load"/>
+                            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&lt;p width=&quot;300&quot;&gt;Load the model from the remote location&lt;/p&gt;"/>
+                            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                              <Color id="Hand Cursor"/>
+                            </Property>
                             <Property name="enabled" type="boolean" value="false"/>
                             <Property name="focusable" type="boolean" value="false"/>
                             <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -926,6 +1001,10 @@
                               <Image iconType="3" name="/qedit/resources/documentation.png"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Details"/>
+                            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&lt;p width=&quot;300&quot;&gt;Inspect details of the downloaded model resource&lt;/p&gt;"/>
+                            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                              <Color id="Hand Cursor"/>
+                            </Property>
                             <Property name="enabled" type="boolean" value="false"/>
                             <Property name="focusable" type="boolean" value="false"/>
                             <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -964,6 +1043,9 @@
                             <Property name="name" type="java.lang.String" value="predFeatDetails" noResource="true"/>
                             <Property name="verticalTextPosition" type="int" value="3"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="predFeatDetailsActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="depFeatDetails">
                           <Properties>
@@ -977,6 +1059,9 @@
                             <Property name="name" type="java.lang.String" value="depFeatDetails" noResource="true"/>
                             <Property name="verticalTextPosition" type="int" value="3"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="depFeatDetailsActionPerformed"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -1142,7 +1227,7 @@
                                       <Component id="jScrollPane5" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="151" max="32767" attributes="0"/>
+                              <EmptySpace pref="131" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1159,7 +1244,7 @@
                                   <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jScrollPane5" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="74" max="32767" attributes="0"/>
+                              <EmptySpace pref="88" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1236,105 +1321,309 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jTextField3" max="32767" attributes="1"/>
-                          <Component id="jTextField1" alignment="0" min="-2" pref="86" max="-2" attributes="1"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jTextField4" min="0" pref="0" max="32767" attributes="1"/>
-                          <Component id="jTextField2" alignment="0" min="-2" pref="41" max="-2" attributes="1"/>
-                      </Group>
-                      <EmptySpace pref="200" max="32767" attributes="0"/>
-                  </Group>
-                  <Component id="jToolBar3" alignment="0" pref="603" max="32767" attributes="0"/>
+                  <Component id="jTabbedPane3" alignment="1" pref="583" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jToolBar3" min="-2" pref="47" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="171" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="jTabbedPane3" alignment="0" pref="335" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel15">
+            <Container class="javax.swing.JTabbedPane" name="jTabbedPane3">
               <Properties>
-                <Property name="text" type="java.lang.String" value="3.2. Prediction (output of the model) :"/>
-                <Property name="name" type="java.lang.String" value="jLabel15" noResource="true"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="jTextField1">
-              <Properties>
-                <Property name="toolTipText" type="java.lang.String" value="value"/>
-                <Property name="name" type="java.lang.String" value="jTextField1" noResource="true"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="jTextField2">
-              <Properties>
-                <Property name="toolTipText" type="java.lang.String" value="units"/>
-                <Property name="name" type="java.lang.String" value="jTextField2" noResource="true"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel16">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Experimental value - if available :"/>
-                <Property name="name" type="java.lang.String" value="jLabel16" noResource="true"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="jTextField3">
-              <Properties>
-                <Property name="toolTipText" type="java.lang.String" value="value"/>
-                <Property name="name" type="java.lang.String" value="jTextField3" noResource="true"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="jTextField4">
-              <Properties>
-                <Property name="toolTipText" type="java.lang.String" value="units"/>
-                <Property name="name" type="java.lang.String" value="jTextField4" noResource="true"/>
-              </Properties>
-            </Component>
-            <Container class="javax.swing.JToolBar" name="jToolBar3">
-              <Properties>
-                <Property name="rollover" type="boolean" value="true"/>
-                <Property name="name" type="java.lang.String" value="jToolBar3" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="jTabbedPane3" noResource="true"/>
               </Properties>
 
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="jButton6">
+                <Container class="javax.swing.JPanel" name="jPanel10">
                   <Properties>
-                    <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/qedit/resources/pi.png"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Predict"/>
-                    <Property name="focusable" type="boolean" value="false"/>
-                    <Property name="horizontalTextPosition" type="int" value="0"/>
-                    <Property name="name" type="java.lang.String" value="jButton6" noResource="true"/>
-                    <Property name="verticalTextPosition" type="int" value="3"/>
+                    <Property name="name" type="java.lang.String" value="jPanel10" noResource="true"/>
                   </Properties>
-                </Component>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                      <JTabbedPaneConstraints tabName="Prediction">
+                        <Property name="tabTitle" type="java.lang.String" value="Prediction"/>
+                      </JTabbedPaneConstraints>
+                    </Constraint>
+                  </Constraints>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jTextField3" max="32767" attributes="1"/>
+                                          <Component id="jTextField1" alignment="0" min="-2" pref="86" max="-2" attributes="1"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jTextField4" min="0" pref="0" max="32767" attributes="1"/>
+                                          <Component id="jTextField2" alignment="0" min="-2" pref="41" max="-2" attributes="1"/>
+                                      </Group>
+                                      <EmptySpace pref="168" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="jToolBar3" alignment="0" pref="559" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jToolBar3" min="-2" pref="47" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextField4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Container class="javax.swing.JToolBar" name="jToolBar3">
+                      <Properties>
+                        <Property name="floatable" type="boolean" value="false"/>
+                        <Property name="rollover" type="boolean" value="true"/>
+                        <Property name="name" type="java.lang.String" value="jToolBar3" noResource="true"/>
+                      </Properties>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JButton" name="jButton6">
+                          <Properties>
+                            <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/qedit/resources/pi.png"/>
+                            </Property>
+                            <Property name="text" type="java.lang.String" value="Predict"/>
+                            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&lt;p width=&quot;300&quot;&gt;Use OpenTox web services to predict the activity value - might be time consuming&lt;/p&gt;"/>
+                            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                              <Color id="Hand Cursor"/>
+                            </Property>
+                            <Property name="focusable" type="boolean" value="false"/>
+                            <Property name="horizontalTextPosition" type="int" value="0"/>
+                            <Property name="name" type="java.lang.String" value="jButton6" noResource="true"/>
+                            <Property name="verticalTextPosition" type="int" value="3"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JButton" name="dwnLoadExpValueButton">
+                          <Properties>
+                            <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/qedit/resources/download.png"/>
+                            </Property>
+                            <Property name="text" type="java.lang.String" value="Download Exp. Value"/>
+                            <Property name="focusable" type="boolean" value="false"/>
+                            <Property name="horizontalTextPosition" type="int" value="0"/>
+                            <Property name="name" type="java.lang.String" value="dwnLoadExpValueButton" noResource="true"/>
+                            <Property name="verticalTextPosition" type="int" value="3"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dwnLoadExpValueButtonActionPerformed"/>
+                          </Events>
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                    <Component class="javax.swing.JLabel" name="jLabel16">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Experimental value - if available :"/>
+                        <Property name="name" type="java.lang.String" value="jLabel16" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel15">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="3.2. Prediction (output of the model) :"/>
+                        <Property name="name" type="java.lang.String" value="jLabel15" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="jTextField1">
+                      <Properties>
+                        <Property name="toolTipText" type="java.lang.String" value="value"/>
+                        <Property name="name" type="java.lang.String" value="jTextField1" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="jTextField4">
+                      <Properties>
+                        <Property name="toolTipText" type="java.lang.String" value="units"/>
+                        <Property name="name" type="java.lang.String" value="jTextField4" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="jTextField3">
+                      <Properties>
+                        <Property name="toolTipText" type="java.lang.String" value="value"/>
+                        <Property name="name" type="java.lang.String" value="jTextField3" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="jTextField2">
+                      <Properties>
+                        <Property name="toolTipText" type="java.lang.String" value="units"/>
+                        <Property name="name" type="java.lang.String" value="jTextField2" noResource="true"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Container class="javax.swing.JPanel" name="jPanel11">
+                  <Properties>
+                    <Property name="name" type="java.lang.String" value="jPanel11" noResource="true"/>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                      <JTabbedPaneConstraints tabName="Discussion">
+                        <Property name="tabTitle" type="java.lang.String" value="Discussion"/>
+                      </JTabbedPaneConstraints>
+                    </Constraint>
+                  </Constraints>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jScrollPane12" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane11" max="32767" attributes="2"/>
+                                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel17" alignment="0" min="0" pref="0" max="32767" attributes="1"/>
+                              </Group>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jScrollPane13" max="32767" attributes="0"/>
+                                  <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jScrollPane13" alignment="0" pref="245" max="32767" attributes="2"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jScrollPane11" min="-2" pref="93" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jScrollPane12" pref="106" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Component class="javax.swing.JLabel" name="jLabel2">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="3.2.e. Comment on the prediction"/>
+                        <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;3.2.e. Comment on the predicted value"/>
+                        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                          <Color id="Hand Cursor"/>
+                        </Property>
+                        <Property name="name" type="java.lang.String" value="jLabel2" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Container class="javax.swing.JScrollPane" name="jScrollPane11">
+                      <Properties>
+                        <Property name="name" type="java.lang.String" value="jScrollPane11" noResource="true"/>
+                      </Properties>
+                      <AuxValues>
+                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JTextArea" name="jTextArea10">
+                          <Properties>
+                            <Property name="columns" type="int" value="20"/>
+                            <Property name="rows" type="int" value="5"/>
+                            <Property name="name" type="java.lang.String" value="jTextArea10" noResource="true"/>
+                          </Properties>
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                    <Component class="javax.swing.JLabel" name="jLabel17">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="&lt;html&gt;3.4. Comment on the uncertainty of the prediction :"/>
+                        <Property name="name" type="java.lang.String" value="jLabel17" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Container class="javax.swing.JScrollPane" name="jScrollPane12">
+                      <Properties>
+                        <Property name="name" type="java.lang.String" value="jScrollPane12" noResource="true"/>
+                      </Properties>
+                      <AuxValues>
+                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JTextArea" name="jTextArea11">
+                          <Properties>
+                            <Property name="columns" type="int" value="20"/>
+                            <Property name="rows" type="int" value="5"/>
+                            <Property name="name" type="java.lang.String" value="jTextArea11" noResource="true"/>
+                          </Properties>
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                    <Container class="javax.swing.JScrollPane" name="jScrollPane13">
+                      <Properties>
+                        <Property name="name" type="java.lang.String" value="jScrollPane13" noResource="true"/>
+                      </Properties>
+                      <AuxValues>
+                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JTextArea" name="jTextArea12">
+                          <Properties>
+                            <Property name="columns" type="int" value="20"/>
+                            <Property name="rows" type="int" value="5"/>
+                            <Property name="name" type="java.lang.String" value="jTextArea12" noResource="true"/>
+                          </Properties>
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                    <Component class="javax.swing.JLabel" name="jLabel18">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="3.5. Chemical/Biological Mechanisms"/>
+                        <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&lt;p width=&quot;300&quot;&gt;3.5. The chemical and biological mechanisms according to the model underpinning the predicted result (OECD principle 5).&lt;/p&gt;"/>
+                        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                          <Color id="Hand Cursor"/>
+                        </Property>
+                        <Property name="name" type="java.lang.String" value="jLabel18" noResource="true"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
               </SubComponents>
             </Container>
           </SubComponents>
@@ -1354,12 +1643,12 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="603" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="583" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="321" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="335" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -1405,7 +1694,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="32" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1437,7 +1726,7 @@
                           </Group>
                           <Component id="jScrollPane10" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="41" max="32767" attributes="0"/>
+                      <EmptySpace pref="55" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
