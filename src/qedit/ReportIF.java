@@ -5,6 +5,7 @@
  */
 package qedit;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -100,6 +101,19 @@ public class ReportIF extends javax.swing.JInternalFrame {
         }
     }
 
+    public void clearStrAnalogues() {
+        getReport().setStructuralAnalogues(new ArrayList<Compound>());
+        clearAllRows(analoguesTable);
+        strAnDepiction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qedit/resources/NoImageIcon.jpg")));
+        refreshStrAnDepiction.setEnabled(false);
+    }
+
+    private void clearAllRows(JTable table) {
+        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+        while (tableModel.getRowCount() > 0) {
+            tableModel.removeRow(0);
+        }
+    }
     /*
      * METHODS
      * METHODS
@@ -108,6 +122,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
      * 
      * 
      */
+
     public void deleteCompoundFields() {
         ImageIcon noImage = org.jdesktop.application.Application.getInstance(qedit.QEditApp.class).getContext().getResourceMap(ReportIF.class).getImageIcon("structureImage.icon");
         depiction.setIcon(noImage);
@@ -274,6 +289,10 @@ public class ReportIF extends javax.swing.JInternalFrame {
      * GETTERS
      * 
      */
+    public JButton getAcquireStrAnaloguesButton() {
+        return acquireStrAnaloguesButton;
+    }
+
     public JTable getAnaloguesTable() {
         return analoguesTable;
     }
@@ -445,7 +464,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
         jToolBar4 = new javax.swing.JToolBar();
         jLabel20 = new javax.swing.JLabel();
         similarityField = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        acquireStrAnaloguesButton = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         strAnDetails = new javax.swing.JButton();
         jScrollPane14 = new javax.swing.JScrollPane();
@@ -458,6 +477,22 @@ public class ReportIF extends javax.swing.JInternalFrame {
         refreshStrAnDepiction = new javax.swing.JButton();
         strAnDepiction = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
+        jLabel24 = new javax.swing.JLabel();
+        jScrollPane16 = new javax.swing.JScrollPane();
+        jTextArea14 = new javax.swing.JTextArea();
+        jPanel16 = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
+        jScrollPane17 = new javax.swing.JScrollPane();
+        jTextArea15 = new javax.swing.JTextArea();
+        jLabel26 = new javax.swing.JLabel();
+        jScrollPane18 = new javax.swing.JScrollPane();
+        jTextArea16 = new javax.swing.JTextArea();
+        jScrollPane19 = new javax.swing.JScrollPane();
+        jTextArea17 = new javax.swing.JTextArea();
+        jScrollPane20 = new javax.swing.JScrollPane();
+        jTextArea18 = new javax.swing.JTextArea();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jTextArea6 = new javax.swing.JTextArea();
@@ -1532,23 +1567,30 @@ public class ReportIF extends javax.swing.JInternalFrame {
 
         similarityField.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
         similarityField.setText("0.95");
+        similarityField.setEnabled(false);
         similarityField.setName("similarityField"); // NOI18N
         similarityField.setPreferredSize(new java.awt.Dimension(100, 27));
-        jToolBar4.add(similarityField);
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qedit/resources/vcs_update.png"))); // NOI18N
-        jButton1.setText("Acquire List");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setName("jButton1"); // NOI18N
-        jButton1.setPreferredSize(new java.awt.Dimension(100, 49));
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        similarityField.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                similarityFieldCaretUpdate(evt);
             }
         });
-        jToolBar4.add(jButton1);
+        jToolBar4.add(similarityField);
+
+        acquireStrAnaloguesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qedit/resources/vcs_update.png"))); // NOI18N
+        acquireStrAnaloguesButton.setText("Acquire List");
+        acquireStrAnaloguesButton.setEnabled(false);
+        acquireStrAnaloguesButton.setFocusable(false);
+        acquireStrAnaloguesButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        acquireStrAnaloguesButton.setName("acquireStrAnaloguesButton"); // NOI18N
+        acquireStrAnaloguesButton.setPreferredSize(new java.awt.Dimension(100, 49));
+        acquireStrAnaloguesButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        acquireStrAnaloguesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acquireStrAnaloguesButtonActionPerformed(evt);
+            }
+        });
+        jToolBar4.add(acquireStrAnaloguesButton);
 
         jSeparator2.setName("jSeparator2"); // NOI18N
         jToolBar4.add(jSeparator2);
@@ -1560,6 +1602,11 @@ public class ReportIF extends javax.swing.JInternalFrame {
         strAnDetails.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         strAnDetails.setName("strAnDetails"); // NOI18N
         strAnDetails.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        strAnDetails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                strAnDetailsActionPerformed(evt);
+            }
+        });
         jToolBar4.add(strAnDetails);
 
         jScrollPane14.setName("jScrollPane14"); // NOI18N
@@ -1585,6 +1632,11 @@ public class ReportIF extends javax.swing.JInternalFrame {
         analoguesTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 analoguesTableMouseClicked(evt);
+            }
+        });
+        analoguesTable.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                analoguesTableKeyReleased(evt);
             }
         });
         jScrollPane14.setViewportView(analoguesTable);
@@ -1668,18 +1720,127 @@ public class ReportIF extends javax.swing.JInternalFrame {
 
         jPanel14.setName("jPanel14"); // NOI18N
 
+        jLabel24.setText("3.3.c. Considerations on analogues :");
+        jLabel24.setName("jLabel24"); // NOI18N
+
+        jScrollPane16.setName("jScrollPane16"); // NOI18N
+
+        jTextArea14.setColumns(20);
+        jTextArea14.setRows(5);
+        jTextArea14.setName("jTextArea14"); // NOI18N
+        jScrollPane16.setViewportView(jTextArea14);
+
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 601, Short.MAX_VALUE)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane16, javax.swing.GroupLayout.DEFAULT_SIZE, 577, Short.MAX_VALUE)
+                    .addComponent(jLabel24))
+                .addContainerGap())
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 318, Short.MAX_VALUE)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane16, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        jTabbedPane4.addTab("Domains", jPanel14);
+        jTabbedPane4.addTab("Discussion on Analogues", jPanel14);
+
+        jPanel16.setName("jPanel16"); // NOI18N
+
+        jLabel25.setText("Metabolic Domain Discussion :");
+        jLabel25.setName("jLabel25"); // NOI18N
+
+        jScrollPane17.setName("jScrollPane17"); // NOI18N
+
+        jTextArea15.setColumns(20);
+        jTextArea15.setRows(5);
+        jTextArea15.setName("jTextArea15"); // NOI18N
+        jScrollPane17.setViewportView(jTextArea15);
+
+        jLabel26.setText("Structural Fragment Domain Discussion :");
+        jLabel26.setName("jLabel26"); // NOI18N
+
+        jScrollPane18.setName("jScrollPane18"); // NOI18N
+
+        jTextArea16.setColumns(20);
+        jTextArea16.setRows(5);
+        jTextArea16.setName("jTextArea16"); // NOI18N
+        jScrollPane18.setViewportView(jTextArea16);
+
+        jScrollPane19.setName("jScrollPane19"); // NOI18N
+
+        jTextArea17.setColumns(20);
+        jTextArea17.setRows(5);
+        jTextArea17.setName("jTextArea17"); // NOI18N
+        jScrollPane19.setViewportView(jTextArea17);
+
+        jScrollPane20.setName("jScrollPane20"); // NOI18N
+
+        jTextArea18.setColumns(20);
+        jTextArea18.setRows(5);
+        jTextArea18.setName("jTextArea18"); // NOI18N
+        jScrollPane20.setViewportView(jTextArea18);
+
+        jLabel27.setText("Descriptor Domain Discussion :");
+        jLabel27.setName("jLabel27"); // NOI18N
+
+        jLabel28.setText("Mechanism Domain Discussion :");
+        jLabel28.setName("jLabel28"); // NOI18N
+
+        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
+        jPanel16.setLayout(jPanel16Layout);
+        jPanel16Layout.setHorizontalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel16Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addComponent(jScrollPane18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                        .addComponent(jScrollPane20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
+                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel25)
+                            .addComponent(jLabel26))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel28)
+                            .addComponent(jLabel27)
+                            .addComponent(jScrollPane19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
+        );
+        jPanel16Layout.setVerticalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel16Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel25)
+                    .addComponent(jLabel27))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane19, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane17, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel26)
+                    .addComponent(jLabel28))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane20, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                    .addComponent(jScrollPane18, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        jTabbedPane4.addTab("Domains Discussion", jPanel16);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -1983,9 +2144,10 @@ public class ReportIF extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_doaResultLabelMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void acquireStrAnaloguesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acquireStrAnaloguesButtonActionPerformed
+        strAnDetails.setEnabled(false);
         acquireListOfAnalogues();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_acquireStrAnaloguesButtonActionPerformed
 
     private void displayImageStructAnalogue() {
         int index = analoguesTable.getSelectedRow();
@@ -2004,7 +2166,49 @@ public class ReportIF extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_analoguesTableMouseClicked
 
+    private void strAnDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_strAnDetailsActionPerformed
+        JFrame jframe = QEditApp.getView().getFrame();
+        int index = analoguesTable.getSelectedRow();
+        compoundDetails = new CompoundDetails(getReport().getStructuralAnalogues().get(index),
+                jframe, true);
+        displayDiagol(compoundDetails, jframe);
+    }//GEN-LAST:event_strAnDetailsActionPerformed
+
+    private void analoguesTableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_analoguesTableKeyReleased
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_KP_UP
+                || evt.getKeyCode() == java.awt.event.KeyEvent.VK_KP_DOWN
+                || evt.getKeyCode() == java.awt.event.KeyEvent.VK_UP
+                || evt.getKeyCode() == java.awt.event.KeyEvent.VK_DOWN
+                || evt.getKeyCode() == java.awt.event.KeyEvent.VK_PAGE_DOWN
+                || evt.getKeyCode() == java.awt.event.KeyEvent.VK_PAGE_UP) {
+            boolean enableStrAnDetailsButton = analoguesTable.getSelectedRowCount() > 0;
+            strAnDetails.setEnabled(enableStrAnDetailsButton);
+            if (enableStrAnDetailsButton) {
+                displayImageStructAnalogue();
+            }
+        }
+    }//GEN-LAST:event_analoguesTableKeyReleased
+
+    private void similarityFieldCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_similarityFieldCaretUpdate
+        String simString = getSimilarityField().getText().trim();
+        try {
+            double simDouble = Double.parseDouble(simString);
+            if (simDouble < 0.50) {
+                getSimilarityField().setForeground(Color.red);
+                getAcquireStrAnaloguesButton().setEnabled(false);
+            } else {
+                getAcquireStrAnaloguesButton().setEnabled(true);
+                getSimilarityField().setForeground(Color.black);
+                getSimilarityField().setBackground(Color.white);
+            }
+
+        } catch (NumberFormatException nfe) {
+            getSimilarityField().setBackground(Color.yellow);
+            getAcquireStrAnaloguesButton().setEnabled(false);
+        }
+    }//GEN-LAST:event_similarityFieldCaretUpdate
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton acquireStrAnaloguesButton;
     private javax.swing.JButton addAuthorButton;
     private javax.swing.JButton addSynonymButton;
     private javax.swing.JLabel addressLabel;
@@ -2032,7 +2236,6 @@ public class ReportIF extends javax.swing.JInternalFrame {
     private javax.swing.JTextField expValueField;
     private javax.swing.JTextField expValueUnitsField;
     private javax.swing.JPanel generalTab;
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;
@@ -2055,6 +2258,11 @@ public class ReportIF extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -2069,6 +2277,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -2084,7 +2293,12 @@ public class ReportIF extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane15;
+    private javax.swing.JScrollPane jScrollPane16;
+    private javax.swing.JScrollPane jScrollPane17;
+    private javax.swing.JScrollPane jScrollPane18;
+    private javax.swing.JScrollPane jScrollPane19;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane20;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
@@ -2103,6 +2317,11 @@ public class ReportIF extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea jTextArea11;
     private javax.swing.JTextArea jTextArea12;
     private javax.swing.JTextArea jTextArea13;
+    private javax.swing.JTextArea jTextArea14;
+    private javax.swing.JTextArea jTextArea15;
+    private javax.swing.JTextArea jTextArea16;
+    private javax.swing.JTextArea jTextArea17;
+    private javax.swing.JTextArea jTextArea18;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextArea jTextArea4;

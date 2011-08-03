@@ -23,12 +23,14 @@ public class CompoundInfo extends AbstractTask {
     }
 
     @Override
-    protected Object doInBackground() throws Exception {
+    protected Object doInBackground() throws Exception {        
         intFrame.deleteCompoundFields();
         intFrame.getLoadCompoundButton().setEnabled(false);
         intFrame.getCompDetailsButton().setEnabled(false);
         intFrame.getStereoFeaturesButton().setEnabled(false);
         intFrame.getRefreshDepictionButton().setEnabled(false);
+        intFrame.getAcquireStrAnaloguesButton().setEnabled(false);
+        intFrame.getSimilarityField().setEnabled(false);
         CompoundSpider spider = null;
         try {
             spider = new CompoundSpider(keyword,
@@ -51,6 +53,8 @@ public class CompoundInfo extends AbstractTask {
         } else {
             QEditApp.getView().getStatusLabel().setText("Failed to load synonyms...");
         }        
+        intFrame.getAcquireStrAnaloguesButton().setEnabled(true);
+        intFrame.getSimilarityField().setEnabled(true);
         return new Object();
     }
 
