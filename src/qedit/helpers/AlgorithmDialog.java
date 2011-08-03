@@ -12,8 +12,10 @@ package qedit.helpers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
@@ -23,6 +25,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 import org.opentox.toxotis.core.component.Algorithm;
+import org.opentox.toxotis.core.component.Parameter;
 import org.opentox.toxotis.ontology.LiteralValue;
 import org.opentox.toxotis.ontology.MetaInfo;
 import org.opentox.toxotis.ontology.OntologicalClass;
@@ -51,13 +54,13 @@ public class AlgorithmDialog extends javax.swing.JDialog {
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), cancelName);
         ActionMap actionMap = getRootPane().getActionMap();
         actionMap.put(cancelName, new AbstractAction() {
-
+            
             public void actionPerformed(ActionEvent e) {
                 doClose(RET_CANCEL);
             }
         });
     }
-
+    
     public AlgorithmDialog(ReportIF intFrame, JFrame jframe, boolean modal) {
         this(jframe, modal);
         this.intFrame = intFrame;
@@ -95,19 +98,19 @@ public class AlgorithmDialog extends javax.swing.JDialog {
          */
         HashSet<LiteralValue> subjects = meta.getSubjects();
         if (subjects != null && !subjects.isEmpty()) {
-            DefaultListModel subjectsListModel = (DefaultListModel)subjectsList.getModel();
-            for (LiteralValue subj : subjects){
+            DefaultListModel subjectsListModel = (DefaultListModel) subjectsList.getModel();
+            for (LiteralValue subj : subjects) {
                 subjectsListModel.addElement(subj.getValueAsString());
             }
         }
-        
+
         /*
          * Contributors
          */
         HashSet<LiteralValue> contributors = meta.getContributors();
         if (contributors != null && !contributors.isEmpty()) {
-            DefaultListModel contributorsListModel = (DefaultListModel)contributorsList.getModel();
-            for (LiteralValue contr : contributors){
+            DefaultListModel contributorsListModel = (DefaultListModel) contributorsList.getModel();
+            for (LiteralValue contr : contributors) {
                 contributorsListModel.addElement(contr.getValueAsString());
             }
         }
@@ -115,26 +118,34 @@ public class AlgorithmDialog extends javax.swing.JDialog {
          * date
          */
         LiteralValue date = meta.getDate();
-        if (date!=null){
+        if (date != null) {
             dateField.setText(date.getValueAsString());
         }
         /*
          * Publisher
          */
         HashSet<LiteralValue> publishers = meta.getPublishers();
-        if (publishers!=null && !publishers.isEmpty()){
+        if (publishers != null && !publishers.isEmpty()) {
             publisherField.setText(publishers.iterator().next().getValueAsString());
         }
         /*
          * Copyright
          */
-        if (meta.getRights()!=null && !meta.getRights().isEmpty()){
+        if (meta.getRights() != null && !meta.getRights().isEmpty()) {
             copyrightField.setText(meta.getRights().iterator().next().getValueAsString());
         }
         /*
          * Algorithm parameters
          */
-        //algo.getParameters();
+        Set<Parameter> algoParameters = algo.getParameters();
+        if (algoParameters != null && !algoParameters.isEmpty()) {
+            PARAMS_MAP = new HashMap<String, Parameter>();
+            DefaultListModel prmListModel = (DefaultListModel) paramsList.getModel();
+            for (Parameter prm : algoParameters) {
+                prmListModel.addElement(prm.getName().getValueAsString());
+                PARAMS_MAP.put(prm.getName().getValueAsString(), prm);
+            }
+        }
         
     }
 
@@ -348,11 +359,11 @@ public class AlgorithmDialog extends javax.swing.JDialog {
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(publisherField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
-                    .addComponent(dateField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE))
+                    .addComponent(publisherField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
+                    .addComponent(dateField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE))
                 .addGap(67, 67, 67))
         );
         jPanel2Layout.setVerticalGroup(
@@ -387,28 +398,38 @@ public class AlgorithmDialog extends javax.swing.JDialog {
 
         jScrollPane6.setName("jScrollPane6"); // NOI18N
 
+        paramsList.setModel(new DefaultListModel());
         paramsList.setName("paramsList"); // NOI18N
+        paramsList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                paramsListValueChanged(evt);
+            }
+        });
         jScrollPane6.setViewportView(paramsList);
 
         jLabel10.setText("<html>List of parameters (click on item to see details) :");
         jLabel10.setName("jLabel10"); // NOI18N
 
         jLabel11.setText("Title :");
+        jLabel11.setEnabled(false);
         jLabel11.setName("jLabel11"); // NOI18N
 
         paramTitleValue.setName("paramTitleValue"); // NOI18N
 
         jLabel12.setText("Scope :");
+        jLabel12.setEnabled(false);
         jLabel12.setName("jLabel12"); // NOI18N
 
         prmScopeValue.setName("prmScopeValue"); // NOI18N
 
         jLabel14.setText("Default Value :");
+        jLabel14.setEnabled(false);
         jLabel14.setName("jLabel14"); // NOI18N
 
         prmDefaultValue.setName("prmDefaultValue"); // NOI18N
 
         jLabel16.setText("Description :");
+        jLabel16.setEnabled(false);
         jLabel16.setName("jLabel16"); // NOI18N
 
         prmDescriptionValue.setName("prmDescriptionValue"); // NOI18N
@@ -433,11 +454,15 @@ public class AlgorithmDialog extends javax.swing.JDialog {
                             .addComponent(jLabel16))
                         .addGap(31, 31, 31)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(prmScopeValue, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-                            .addComponent(paramTitleValue, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-                            .addComponent(prmDefaultValue, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-                            .addComponent(prmDescriptionValue, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE))
-                        .addGap(177, 177, 177))))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(paramTitleValue, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                                    .addComponent(prmDefaultValue, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                                    .addComponent(prmScopeValue, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE))
+                                .addGap(149, 149, 149))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(prmDescriptionValue, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -459,10 +484,10 @@ public class AlgorithmDialog extends javax.swing.JDialog {
                     .addComponent(jLabel14)
                     .addComponent(prmDefaultValue, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
                     .addComponent(jLabel16)
-                    .addComponent(prmDescriptionValue, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(43, Short.MAX_VALUE))
+                    .addComponent(prmDescriptionValue, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43))
         );
 
         jTabbedPane1.addTab("Parameters", jPanel3);
@@ -501,7 +526,7 @@ public class AlgorithmDialog extends javax.swing.JDialog {
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         doClose(RET_OK);
     }//GEN-LAST:event_okButtonActionPerformed
-
+    
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         doClose(RET_CANCEL);
     }//GEN-LAST:event_cancelButtonActionPerformed
@@ -511,6 +536,30 @@ public class AlgorithmDialog extends javax.swing.JDialog {
         doClose(RET_CANCEL);
     }//GEN-LAST:event_closeDialog
 
+    private void paramsListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_paramsListValueChanged
+        if (PARAMS_MAP==null){
+            return;
+        }
+        int[] indices = paramsList.getSelectedIndices();
+        boolean oneIsSelected = indices.length == 1;
+        jLabel11.setEnabled(oneIsSelected);
+        jLabel12.setEnabled(oneIsSelected);
+        jLabel14.setEnabled(oneIsSelected);
+        jLabel16.setEnabled(oneIsSelected);
+        if (oneIsSelected){
+            Parameter prm = PARAMS_MAP.get(paramsList.getSelectedValue().toString());
+            paramTitleValue.setText(prm.getName().getValueAsString());
+            prmScopeValue.setText(prm.getScope().toString());
+            prmDefaultValue.setText(prm.getTypedValue().getValueAsString());
+            prmDescriptionValue.setText("<html>"+prm.getMeta().getDescriptions().iterator().next().getValueAsString());
+        }else{
+            paramTitleValue.setText("");
+            prmScopeValue.setText("");
+            prmDescriptionValue.setText("");
+            prmDefaultValue.setText("");
+        }
+    }//GEN-LAST:event_paramsListValueChanged
+    
     private void doClose(int retStatus) {
         returnStatus = retStatus;
         setVisible(false);
@@ -522,11 +571,11 @@ public class AlgorithmDialog extends javax.swing.JDialog {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
-
+            
             public void run() {
                 AlgorithmDialog dialog = new AlgorithmDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-
+                    
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -579,4 +628,5 @@ public class AlgorithmDialog extends javax.swing.JDialog {
     private javax.swing.JTextField uriField;
     // End of variables declaration//GEN-END:variables
     private int returnStatus = RET_CANCEL;
+    private Map<String, Parameter> PARAMS_MAP = null;
 }

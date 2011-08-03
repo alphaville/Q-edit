@@ -447,7 +447,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
             .addGroup(depictionPanelLayout.createSequentialGroup()
                 .addComponent(depictionToolbar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(depiction, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                .addComponent(depiction, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -520,7 +520,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
             .addGroup(synonymsPanelLayout.createSequentialGroup()
                 .addComponent(synonymsToolbar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(synonymsScollable, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                .addComponent(synonymsScollable, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -565,6 +565,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
+        authorsList.setModel(new DefaultListModel());
         authorsList.setName("authorsList"); // NOI18N
         authorsList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -600,6 +601,11 @@ public class ReportIF extends javax.swing.JInternalFrame {
         removeAuthorButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         removeAuthorButton.setName("removeAuthorButton"); // NOI18N
         removeAuthorButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        removeAuthorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeAuthorButtonActionPerformed(evt);
+            }
+        });
         jToolBar1.add(removeAuthorButton);
 
         moveUpAuthor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qedit/resources/go-up-search.png"))); // NOI18N
@@ -730,7 +736,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
                             .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, 0, 0, Short.MAX_VALUE))
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Authorship", jPanel1);
@@ -793,7 +799,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Report", jPanel2);
@@ -806,7 +812,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
         );
         generalTabLayout.setVerticalGroup(
             generalTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
         );
 
         basePanel.addTab("General", generalTab);
@@ -987,7 +993,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
                     .addComponent(modelUriField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Model Info", jPanel7);
@@ -1042,7 +1048,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("QMRF Report", jPanel8);
@@ -1055,7 +1061,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
+            .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
         );
 
         basePanel.addTab("Model", jPanel3);
@@ -1125,7 +1131,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
                     .addComponent(jLabel16)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addContainerGap(171, Short.MAX_VALUE))
         );
 
         basePanel.addTab("Prediction", jPanel4);
@@ -1140,7 +1146,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 319, Short.MAX_VALUE)
+            .addGap(0, 321, Short.MAX_VALUE)
         );
 
         basePanel.addTab("DoA", jPanel5);
@@ -1234,7 +1240,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         basePanel.addTab("Discussion", jPanel6);
@@ -1247,7 +1253,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(basePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+            .addComponent(basePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
         );
 
         pack();
@@ -1348,6 +1354,16 @@ public class ReportIF extends javax.swing.JInternalFrame {
     private void algorithmDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_algorithmDetailsActionPerformed
         algoDetails();
     }//GEN-LAST:event_algorithmDetailsActionPerformed
+
+    private void removeAuthorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeAuthorButtonActionPerformed
+        // Remove from the MAP:
+        Object[] selectedValues = authorsList.getSelectedValues();
+        for (Object o : selectedValues){
+            AUTHORS_MAP.remove(o.toString());
+        }
+        // Remove from the table:
+        removeSelectedRows(authorsList);
+    }//GEN-LAST:event_removeAuthorButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addAuthorButton;

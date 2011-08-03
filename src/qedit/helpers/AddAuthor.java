@@ -10,6 +10,7 @@
  */
 package qedit.helpers;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
@@ -86,6 +87,7 @@ public final class AddAuthor extends javax.swing.JDialog {
         affiliationField = new javax.swing.JTextField();
         addressField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        warningLabel = new javax.swing.JLabel();
 
         setTitle("Add author of QPRF report");
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -95,6 +97,7 @@ public final class AddAuthor extends javax.swing.JDialog {
         });
 
         okButton.setText("OK");
+        okButton.setEnabled(false);
         okButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okButtonActionPerformed(evt);
@@ -117,6 +120,11 @@ public final class AddAuthor extends javax.swing.JDialog {
         jLabel2.setName("jLabel2"); // NOI18N
 
         lastNameField.setName("lastNameField"); // NOI18N
+        lastNameField.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                lastNameFieldCaretUpdate(evt);
+            }
+        });
 
         emailField.setName("emailField"); // NOI18N
 
@@ -138,6 +146,8 @@ public final class AddAuthor extends javax.swing.JDialog {
         jLabel6.setText("Address :");
         jLabel6.setName("jLabel6"); // NOI18N
 
+        warningLabel.setName("warningLabel"); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -147,15 +157,13 @@ public final class AddAuthor extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(39, 39, 39))
+                            .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6))
-                        .addGap(6, 6, 6)
+                        .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(firstNameField, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                             .addComponent(lastNameField, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
@@ -164,6 +172,8 @@ public final class AddAuthor extends javax.swing.JDialog {
                             .addComponent(affiliationField, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                             .addComponent(addressField, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(warningLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                         .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cancelButton)))
@@ -199,10 +209,12 @@ public final class AddAuthor extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addressField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelButton)
-                    .addComponent(okButton))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cancelButton)
+                        .addComponent(okButton))
+                    .addComponent(warningLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -219,16 +231,22 @@ public final class AddAuthor extends javax.swing.JDialog {
                 addressField.getText().trim(),
                 null,
                 webPageField.getText().trim());
-        intFrame.getReport().getAuthors().add(author);
-        ListModel authorsListModel = intFrame.getAuthorsList().getModel();
-        if (authorsListModel == null || (authorsListModel != null
-                && !DefaultListModel.class.isAssignableFrom(authorsListModel.getClass()))) {
-            intFrame.getAuthorsList().setModel(new DefaultListModel());
+
+        String name = author.getFirstName() + " " + author.getLastName();        
+        /*
+         * Check whether the author is already registered!!!
+         */
+        if (intFrame.getAUTHORSMAP().containsKey(name)) {
+            firstNameField.setBackground(Color.yellow);
+            lastNameField.setBackground(Color.yellow);
+            warningLabel.setText("Author already registered!");
+            warningLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qedit/resources/flag-red.png")));
+        } else {
+            ((DefaultListModel) intFrame.getAuthorsList().getModel()).addElement(name);
+            intFrame.getReport().getAuthors().add(author);
+            intFrame.getAUTHORSMAP().put(name, author);
+            doClose(RET_OK);
         }
-        String name = author.getFirstName() + " " + author.getLastName();
-        ((DefaultListModel) intFrame.getAuthorsList().getModel()).addElement(name);
-        intFrame.getAUTHORSMAP().put(name, author);
-        doClose(RET_OK);
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
@@ -239,6 +257,12 @@ public final class AddAuthor extends javax.swing.JDialog {
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
         doClose(RET_CANCEL);
     }//GEN-LAST:event_closeDialog
+
+    private void lastNameFieldCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_lastNameFieldCaretUpdate
+        String LN = lastNameField.getText();
+        boolean enableOkButton = LN != null && !LN.trim().isEmpty();
+        okButton.setEnabled(enableOkButton);
+    }//GEN-LAST:event_lastNameFieldCaretUpdate
 
     private void doClose(int retStatus) {
         returnStatus = retStatus;
@@ -279,6 +303,7 @@ public final class AddAuthor extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField lastNameField;
     private javax.swing.JButton okButton;
+    private javax.swing.JLabel warningLabel;
     private javax.swing.JTextField webPageField;
     // End of variables declaration//GEN-END:variables
     private int returnStatus = RET_CANCEL;
