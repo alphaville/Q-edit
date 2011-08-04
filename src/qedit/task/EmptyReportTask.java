@@ -31,24 +31,16 @@ public class EmptyReportTask extends AbstractTask {
 
     @Override
     protected Object doInBackground() throws Exception {
-        setProgress(15);
         desktopPane.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.WAIT_CURSOR));
-        setProgress(20);
         QEditApp.getView().getStatusLabel().setText("Loading new Report... Please Wait!");
-        setProgress(30);
         ReportIF nd = new ReportIF();
-        setProgress(40);
         nd.setVisible(true);
         QEditApp.getView().getDesktopPane().add(nd);
-        setProgress(50);
         nd.revalidate();
         nd.setLocation(new java.awt.Point(40 + 10 * QEditView.getNumOpenDocuments(), 40 + 10 * QEditView.getNumOpenDocuments()));
-        setProgress(60);
         nd.setTitle("Document " + (QEditView.getNumOpenDocuments() + 1));
         nd.setName(nd.getTitle());
-        setProgress(70);
         QEditView.increaseNumOpenDocuments();
-        setProgress(80);
         try {
             nd.setSelected(true);
         } catch (PropertyVetoException ex) {

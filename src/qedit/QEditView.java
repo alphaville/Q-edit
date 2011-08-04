@@ -35,7 +35,8 @@ import qedit.hints.TooManyOpenDocsWarning;
 import qedit.task.AbstractTask;
 import qedit.task.EmptyReportTask;
 import qedit.task.Logout;
-
+import qedit.task.ReportLoader;
+import qedit.task.Salvador;
 
 /**
  * The application's main frame.
@@ -45,7 +46,6 @@ public class QEditView extends FrameView {
     private static boolean doShowTooManyDocsWarning = true;
     private static SessionHistory sessionHistory = null;
     public static final String QEDIT_SESSION_HISTORY = "qedit_session_hitory";
-
 
     public QEditView(SingleFrameApplication app) {
         super(app);
@@ -148,23 +148,44 @@ public class QEditView extends FrameView {
 
     @Action
     public void openFileAction() {
-//        localFileChooserWindow = new JFileChooser();
-//        localFileChooserWindow.setFileFilter(new FileNameExtensionFilter("Reports", "report"));
-//        localFileChooserWindow.setMultiSelectionEnabled(false);
-//        localFileChooserWindow.showOpenDialog(mainPanel);
-//        if (localFileChooserWindow.getSelectedFile() == null || !localFileChooserWindow.getSelectedFile().exists()) {
-//            getStatusLabel().setText("No report loaded!");
-//            return;
-//        }
-//        OpenDocumentTask internalFrameCreationTask = new OpenDocumentTask();
-//        internalFrameCreationTask.setDesktopPane(desktopPane);
-//        internalFrameCreationTask.setLocalFileChooserWindow(localFileChooserWindow);
-//        internalFrameCreationTask.runInBackground();
-//
+        localFileChooserWindow = new JFileChooser();
+        localFileChooserWindow.setFileFilter(new FileNameExtensionFilter("Reports", "ro"));
+        localFileChooserWindow.setMultiSelectionEnabled(false);
+        localFileChooserWindow.showOpenDialog(mainPanel);
+        if (localFileChooserWindow.getSelectedFile() == null || !localFileChooserWindow.getSelectedFile().exists()) {
+            getStatusLabel().setText("No report loaded!");
+            return;
+        }
+        
+        ReportLoader loaderTask = new ReportLoader(localFileChooserWindow);
+        loaderTask.runInBackground();
 
     }
 
+    @Action
+    public void saveDialogBox() {
+        final ReportIF rif = (ReportIF) desktopPane.getSelectedFrame();
+        if (rif == null) {
+            getStatusLabel().setText("No document selected to be saved!");
+            return;
+        }
+        QEditApp.getView().getStatusLabel().setText("Saving Document");
+        if (rif.getRelatedFile() == null) {
+            saveFileChooserWindow = new JFileChooser();
+            saveFileChooserWindow.setFileFilter(new FileNameExtensionFilter("QPRF Reports", "ro"));
+            saveFileChooserWindow.setMultiSelectionEnabled(false);
+            saveFileChooserWindow.setDialogTitle("Save " + rif.getTitle());
+            saveFileChooserWindow.showSaveDialog(mainPanel);
+        } else {
+            saveFileChooserWindow = null;
+        }
+        Salvador saveFileTask = new Salvador(saveFileChooserWindow, rif);
+        saveFileTask.runInBackground();
+        if (saveFileChooserWindow != null) {
+            rif.setRelatedFile(saveFileChooserWindow.getSelectedFile());
+        }
 
+    }
 
     @Action
     public void createNewEmptyReport() {
@@ -229,8 +250,7 @@ public class QEditView extends FrameView {
         }
 
         recentSessionsTree.setModel(new DefaultTreeModel(rootNode));
-    }    
-    
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -810,7 +830,7 @@ public class QEditView extends FrameView {
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
-//        saveDialogBox();
+        saveDialogBox();
     }//GEN-LAST:event_saveMenuItemActionPerformed
 
     private void helpItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpItemActionPerformed
@@ -856,7 +876,7 @@ public class QEditView extends FrameView {
         } else {
             getStatusLabel().setText("No documents are open...");
         }
-        QEditView.numOpenInternalFrames=0;
+        QEditView.numOpenInternalFrames = 0;
     }//GEN-LAST:event_closeAllMenuItemActionPerformed
 
     private void closeMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeMenuItemActionPerformed
@@ -901,11 +921,10 @@ public class QEditView extends FrameView {
 //        AuthenticationBox box = new AuthenticationBox(QEditApp.getView().getFrame(), true);
 //        box.setLocation(new Point(desktopPane.getWidth() / 2, desktopPane.getHeight() / 2));
 //        box.setVisible(true);
-
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void recentSessionsTreeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_recentSessionsTreeKeyPressed
-        
+
         if (evt.getKeyCode() == 525) {
             TreePath path = recentSessionsTree.getSelectionPath();
             DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
@@ -957,7 +976,6 @@ public class QEditView extends FrameView {
         authenticate.setVisible(true);
 
     }//GEN-LAST:event_loginButtonActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aboutToolButton;
     private javax.swing.JToolBar basicToolbar;
@@ -1025,6 +1043,5 @@ public class QEditView extends FrameView {
     private JDialog editorOptionsBox;
     private static int numOpenInternalFrames = 0;
     private static TooManyOpenDocsWarning warningDialog;
-    private static DefaultMutableTreeNode sessionPopupChoice;  
-
+    private static DefaultMutableTreeNode sessionPopupChoice;
 }

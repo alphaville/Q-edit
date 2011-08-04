@@ -54,13 +54,13 @@ public class AlgorithmDialog extends javax.swing.JDialog {
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), cancelName);
         ActionMap actionMap = getRootPane().getActionMap();
         actionMap.put(cancelName, new AbstractAction() {
-            
+
             public void actionPerformed(ActionEvent e) {
                 doClose(RET_CANCEL);
             }
         });
     }
-    
+
     public AlgorithmDialog(ReportIF intFrame, JFrame jframe, boolean modal) {
         this(jframe, modal);
         this.intFrame = intFrame;
@@ -146,7 +146,7 @@ public class AlgorithmDialog extends javax.swing.JDialog {
                 PARAMS_MAP.put(prm.getName().getValueAsString(), prm);
             }
         }
-        
+
     }
 
     /** @return the return status of this dialog - one of RET_OK or RET_CANCEL */
@@ -254,6 +254,7 @@ public class AlgorithmDialog extends javax.swing.JDialog {
         jScrollPane2.setName("jScrollPane2"); // NOI18N
 
         algoTypesList.setModel(new DefaultListModel());
+        algoTypesList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         algoTypesList.setName("algoTypesList"); // NOI18N
         jScrollPane2.setViewportView(algoTypesList);
 
@@ -309,6 +310,7 @@ public class AlgorithmDialog extends javax.swing.JDialog {
         jScrollPane3.setName("jScrollPane3"); // NOI18N
 
         subjectsList.setModel(new DefaultListModel());
+        subjectsList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         subjectsList.setName("subjectsList"); // NOI18N
         jScrollPane3.setViewportView(subjectsList);
 
@@ -318,6 +320,7 @@ public class AlgorithmDialog extends javax.swing.JDialog {
         jScrollPane4.setName("jScrollPane4"); // NOI18N
 
         contributorsList.setModel(new DefaultListModel());
+        contributorsList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         contributorsList.setName("contributorsList"); // NOI18N
         jScrollPane4.setViewportView(contributorsList);
 
@@ -399,6 +402,7 @@ public class AlgorithmDialog extends javax.swing.JDialog {
         jScrollPane6.setName("jScrollPane6"); // NOI18N
 
         paramsList.setModel(new DefaultListModel());
+        paramsList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         paramsList.setName("paramsList"); // NOI18N
         paramsList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -442,16 +446,15 @@ public class AlgorithmDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(paramsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paramsTabLayout.createSequentialGroup()
-                        .addGroup(paramsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(318, Short.MAX_VALUE))
                     .addGroup(paramsTabLayout.createSequentialGroup()
                         .addGroup(paramsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel16))
+                            .addComponent(jLabel16)
+                            .addGroup(paramsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel11)
+                                .addComponent(jLabel12)
+                                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(31, 31, 31)
                         .addGroup(paramsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(paramsTabLayout.createSequentialGroup()
@@ -462,7 +465,10 @@ public class AlgorithmDialog extends javax.swing.JDialog {
                                 .addGap(149, 149, 149))
                             .addGroup(paramsTabLayout.createSequentialGroup()
                                 .addComponent(prmDescriptionValue, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())))))
+                                .addContainerGap())))
+                    .addGroup(paramsTabLayout.createSequentialGroup()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         paramsTabLayout.setVerticalGroup(
             paramsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -484,9 +490,9 @@ public class AlgorithmDialog extends javax.swing.JDialog {
                     .addComponent(jLabel14)
                     .addComponent(prmDefaultValue, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(paramsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
-                    .addComponent(jLabel16)
-                    .addComponent(prmDescriptionValue, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(paramsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(prmDescriptionValue, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16))
                 .addGap(43, 43, 43))
         );
 
@@ -526,7 +532,7 @@ public class AlgorithmDialog extends javax.swing.JDialog {
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         doClose(RET_OK);
     }//GEN-LAST:event_okButtonActionPerformed
-    
+
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         doClose(RET_CANCEL);
     }//GEN-LAST:event_cancelButtonActionPerformed
@@ -537,7 +543,7 @@ public class AlgorithmDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_closeDialog
 
     private void paramsListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_paramsListValueChanged
-        if (PARAMS_MAP==null){
+        if (PARAMS_MAP == null) {
             return;
         }
         int[] indices = paramsList.getSelectedIndices();
@@ -546,20 +552,26 @@ public class AlgorithmDialog extends javax.swing.JDialog {
         jLabel12.setEnabled(oneIsSelected);
         jLabel14.setEnabled(oneIsSelected);
         jLabel16.setEnabled(oneIsSelected);
-        if (oneIsSelected){
+        if (oneIsSelected) {
             Parameter prm = PARAMS_MAP.get(paramsList.getSelectedValue().toString());
             paramTitleValue.setText(prm.getName().getValueAsString());
             prmScopeValue.setText(prm.getScope().toString());
             prmDefaultValue.setText(prm.getTypedValue().getValueAsString());
-            prmDescriptionValue.setText("<html>"+prm.getMeta().getDescriptions().iterator().next().getValueAsString());
-        }else{
+            if (prm.getMeta().getDescriptions() != null
+                    && !prm.getMeta().getDescriptions().isEmpty()) {
+                prmDescriptionValue.setText("<html>" + prm.getMeta().getDescriptions().
+                        iterator().next().getValueAsString());
+            }else{
+                prmDescriptionValue.setText("");
+            }
+        } else {
             paramTitleValue.setText("");
             prmScopeValue.setText("");
             prmDescriptionValue.setText("");
             prmDefaultValue.setText("");
         }
     }//GEN-LAST:event_paramsListValueChanged
-    
+
     private void doClose(int retStatus) {
         returnStatus = retStatus;
         setVisible(false);
@@ -571,11 +583,11 @@ public class AlgorithmDialog extends javax.swing.JDialog {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
+
             public void run() {
                 AlgorithmDialog dialog = new AlgorithmDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);

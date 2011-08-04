@@ -57,6 +57,8 @@ public class QEditApp extends SingleFrameApplication {
      */
     @Override
     protected void configureWindow(java.awt.Window root) {
+        root.setIconImage(
+                new javax.swing.ImageIcon(getClass().getResource("/qedit/resources/emblem-generic.png")).getImage());
     }
 
     /**
@@ -71,10 +73,7 @@ public class QEditApp extends SingleFrameApplication {
      * Main method launching the application.
      */
     public static void main(String[] args) throws BackingStoreException {
-//        Preferences prefs = Preferences.userRoot();
-//        prefs.clear();
-        
-        splash = new qedit.SplashScreen("resources/splash.png", null, 5000);
+        splash = new qedit.SplashScreen("resources/splash.png", null, 1000);
         try {
             Thread.sleep(1000);
         } catch (InterruptedException ex) {

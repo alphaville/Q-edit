@@ -167,7 +167,6 @@ public final class AddSynonym extends javax.swing.JDialog {
     }//GEN-LAST:event_closeDialog
 
     private void addSynonymFieldCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_addSynonymFieldCaretUpdate
-        // TODO add your handling code here:
         String addSynText = addSynonymField.getText();
         if (addSynText == null || (addSynText != null && addSynText.trim().isEmpty())) {
             okButton.setEnabled(false);

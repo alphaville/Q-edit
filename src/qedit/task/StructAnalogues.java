@@ -30,6 +30,7 @@ public class StructAnalogues extends AbstractTask {
         double similarity = Double.parseDouble(intFrame.getSimilarityField().getText());
         Compound c = intFrame.getReport().getCompound();
         SimilarityRetriever sr = new SimilarityRetriever(similarity, c);
+        sr.setRetrieveDepiction(true);
         sr.authenticate(QEditApp.getAuthentication());
         intFrame.getReport().setStructuralAnalogues(sr.similarCompounds());
         intFrame.updateStrAnal();
