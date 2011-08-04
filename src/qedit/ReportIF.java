@@ -16,6 +16,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,6 +55,7 @@ import qedit.helpers.FeatureDetails;
 import qedit.helpers.ModelDetailsDialog;
 import qedit.helpers.Stereo;
 import qedit.task.CompoundInfo;
+import qedit.task.DwnloadExpValues;
 import qedit.task.ExperimentalValueRetriever;
 import qedit.task.ImportModel;
 import qedit.task.StructAnalogues;
@@ -118,7 +120,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
             if (meta.getDescriptions() != null && !meta.getDescriptions().isEmpty()) {
                 qprfReportDescription.setText(meta.getDescriptions().iterator().next().getValueAsString());
             }
-        } 
+        }
         /*
          * Synchronize report meta
          */
@@ -195,8 +197,11 @@ public class ReportIF extends javax.swing.JInternalFrame {
          * Populate table of structural analogues
          */
         if (getReport().getStructuralAnalogues() != null && !getReport().getStructuralAnalogues().isEmpty()) {
+            ArrayList<String> expValues = getReport().getExperimentalValues();
+            Iterator<String> iterator = expValues != null ? expValues.iterator() : null;
             DefaultTableModel analoguesTableModel = (DefaultTableModel) analoguesTable.getModel();
             String listCompIdentifier = null;
+            String currentExpValue = "";
             for (Compound sa : getReport().getStructuralAnalogues()) {
                 if (sa.getIupacName() != null) {
                     listCompIdentifier = sa.getIupacName();
@@ -209,7 +214,8 @@ public class ReportIF extends javax.swing.JInternalFrame {
                 } else {
                     listCompIdentifier = sa.getUri().toString();
                 }
-                analoguesTableModel.addRow(new String[]{listCompIdentifier, ""});
+                currentExpValue = iterator != null ? iterator.next() : "";
+                analoguesTableModel.addRow(new String[]{listCompIdentifier, currentExpValue});
             }
         }
 
@@ -226,6 +232,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
         if (getReport().getCompound() != null && getReport().getModel() != null) {
             predictButton.setEnabled(true);
             dwnLoadExpValueButton.setEnabled(true);
+            dwnExpValuesButton.setEnabled(true);
         }
         /*
          * Report date retrieval
@@ -266,7 +273,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
          */
         doaLink.setText(getReport().getDoaUri());
         doaName.setText(getReport().getDoAName());
-        
+
     }
 
     /**
@@ -568,6 +575,10 @@ public class ReportIF extends javax.swing.JInternalFrame {
      * GETTERS and SETTERS
      * 
      */
+    public JButton getDwnExpValuesButton() {
+        return dwnExpValuesButton;
+    }
+
     public java.io.File getRelatedFile() {
         return relatedFile;
     }
@@ -752,7 +763,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
         jLabel20 = new javax.swing.JLabel();
         similarityField = new javax.swing.JTextField();
         acquireStrAnaloguesButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        dwnExpValuesButton = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         strAnDetails = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
@@ -1891,15 +1902,20 @@ public class ReportIF extends javax.swing.JInternalFrame {
         });
         jToolBar4.add(acquireStrAnaloguesButton);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qedit/resources/go-bottom.png"))); // NOI18N
-        jButton1.setText("Exp. Values");
-        jButton1.setToolTipText("Download experimental values");
-        jButton1.setEnabled(false);
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setName("jButton1"); // NOI18N
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar4.add(jButton1);
+        dwnExpValuesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qedit/resources/go-bottom.png"))); // NOI18N
+        dwnExpValuesButton.setText("Exp. Values");
+        dwnExpValuesButton.setToolTipText("Download experimental values");
+        dwnExpValuesButton.setEnabled(false);
+        dwnExpValuesButton.setFocusable(false);
+        dwnExpValuesButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        dwnExpValuesButton.setName("dwnExpValuesButton"); // NOI18N
+        dwnExpValuesButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        dwnExpValuesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dwnExpValuesButtonActionPerformed(evt);
+            }
+        });
+        jToolBar4.add(dwnExpValuesButton);
 
         jSeparator2.setName("jSeparator2"); // NOI18N
         jToolBar4.add(jSeparator2);
@@ -2505,8 +2521,23 @@ public class ReportIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_doaResultLabelMouseClicked
 
     private void strAnRemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_strAnRemoveButtonActionPerformed
-        // TODO add your handling code here:
+        int selRowIndex = analoguesTable.getSelectedRow();
+        if (getReport().getStructuralAnalogues() != null &&
+                !getReport().getStructuralAnalogues().isEmpty()) {
+            getReport().getStructuralAnalogues().remove(selRowIndex);
+        }
+        if (getReport().getExperimentalValues()!=null && !getReport().getExperimentalValues().isEmpty()){
+        getReport().getExperimentalValues().remove(selRowIndex);
+        }
+        DefaultTableModel analoguesTableModel = (DefaultTableModel) analoguesTable.getModel();
+        analoguesTableModel.removeRow(selRowIndex);
+        strAnDepiction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qedit/resources/NoImageIcon.jpg")));
     }//GEN-LAST:event_strAnRemoveButtonActionPerformed
+
+    private void dwnExpValuesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dwnExpValuesButtonActionPerformed
+        DwnloadExpValues task = new DwnloadExpValues(this);
+        task.runInBackground();
+    }//GEN-LAST:event_dwnExpValuesButtonActionPerformed
 
     private void displayImageStructAnalogue() {
         int index = analoguesTable.getSelectedRow();
@@ -2545,13 +2576,13 @@ public class ReportIF extends javax.swing.JInternalFrame {
     private javax.swing.JTextField doaLink;
     private javax.swing.JTextField doaName;
     private javax.swing.JLabel doaResultLabel;
+    private javax.swing.JButton dwnExpValuesButton;
     private javax.swing.JButton dwnLoadExpValueButton;
     private javax.swing.JLabel emailField;
     private javax.swing.JLabel emailLabel;
     private javax.swing.JTextField expValueUnits;
     private javax.swing.JTextField experimentalValue;
     private javax.swing.JPanel generalTab;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

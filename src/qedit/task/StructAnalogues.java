@@ -25,6 +25,7 @@ public class StructAnalogues extends AbstractTask {
     @Override
     protected Object doInBackground() throws Exception {
         intFrame.clearStrAnalogues();
+        intFrame.getDwnExpValuesButton().setEnabled(false);
         intFrame.getSimilarityField().setEnabled(false);
         intFrame.getAcquireStrAnaloguesButton().setEnabled(false);
         double similarity = Double.parseDouble(intFrame.getSimilarityField().getText());
@@ -41,8 +42,11 @@ public class StructAnalogues extends AbstractTask {
     protected void finished() {
         intFrame.getSimilarityField().setEnabled(true);
         intFrame.getAcquireStrAnaloguesButton().setEnabled(true);
+        if (intFrame.getReport().getModel() != null
+                && intFrame.getReport().getModel().getDependentFeatures() != null
+                && !intFrame.getReport().getModel().getDependentFeatures().isEmpty()) {
+            intFrame.getDwnExpValuesButton().setEnabled(true);
+        }
         super.finished();
     }
-    
-    
 }
