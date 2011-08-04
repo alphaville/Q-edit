@@ -110,6 +110,14 @@ public class ReportIF extends javax.swing.JInternalFrame {
             return;
         }
         /*
+         * Similarity Level
+         */
+        if (getReport().getStructuralAnalogues()!=null && 
+                !getReport().getStructuralAnalogues().isEmpty()){
+            similarityField.setText(getReport().getSimilarityLevel()+"");    
+        }
+        
+        /*
          * synchronize metainfo
          */
         MetaInfo meta = getReport().getMeta();
@@ -362,6 +370,16 @@ public class ReportIF extends javax.swing.JInternalFrame {
         int miYear = Integer.parseInt(yearModelInfoCombo.getSelectedItem().toString());
         getReport().setModelDate(
                 new GregorianCalendar(miYear, mimonth, miday).getTimeInMillis());
+        /*
+         * Store all exp. values for structural analogues
+         * (The user migth have added some)
+         */
+        DefaultTableModel analoguesTableModel = (DefaultTableModel)analoguesTable.getModel();
+        for (int i=0;i<getReport().getExperimentalValues().size();i++){
+                getReport().getExperimentalValues().set(i, analoguesTableModel.getValueAt(i, 1).toString());
+        }
+        
+        
     }
 
     public void updateStrAnal() {

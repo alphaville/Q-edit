@@ -53,11 +53,11 @@ public final class CompoundDetails extends javax.swing.JDialog {
         conformersList.setModel(new DefaultListModel());
 
 
-
         for (Conformer conformer : compound.getConformers()) {
             System.out.println("   L " + conformer.getUri());
             ((DefaultListModel) conformersList.getModel()).addElement(conformer.getUri().toString());
         }
+
 
 
 
