@@ -118,6 +118,7 @@ public final class Stereo extends javax.swing.JDialog {
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
         stereoDiscussionArea.setColumns(20);
+        stereoDiscussionArea.setLineWrap(true);
         stereoDiscussionArea.setRows(5);
         stereoDiscussionArea.setName("stereoDiscussionArea"); // NOI18N
         jScrollPane1.setViewportView(stereoDiscussionArea);

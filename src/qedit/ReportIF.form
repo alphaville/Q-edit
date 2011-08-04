@@ -33,7 +33,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="basePanel" alignment="0" pref="412" max="32767" attributes="0"/>
+          <Component id="basePanel" alignment="0" pref="414" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -210,7 +210,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="depictionToolbar" min="-2" pref="25" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="depiction" pref="227" max="32767" attributes="0"/>
+                          <Component id="depiction" pref="229" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -281,7 +281,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="synonymsToolbar" min="-2" pref="25" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="synonymsScollable" pref="171" max="32767" attributes="1"/>
+                          <Component id="synonymsScollable" pref="173" max="32767" attributes="1"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -438,7 +438,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jTabbedPane1" alignment="0" pref="369" max="32767" attributes="0"/>
+                  <Component id="jTabbedPane1" alignment="0" pref="371" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -540,7 +540,7 @@
                                   </Group>
                                   <Component id="jScrollPane1" min="0" pref="0" max="32767" attributes="1"/>
                               </Group>
-                              <EmptySpace pref="117" max="32767" attributes="0"/>
+                              <EmptySpace pref="119" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -804,7 +804,7 @@
                                   <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                                   <Component id="jScrollPane3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="82" max="32767" attributes="0"/>
+                              <EmptySpace pref="84" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -838,6 +838,7 @@
                         <Component class="javax.swing.JTextArea" name="qprfReportTitle">
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
+                            <Property name="lineWrap" type="boolean" value="true"/>
                             <Property name="rows" type="int" value="5"/>
                             <Property name="text" type="java.lang.String" value="QSAR Prediction Reporting Format (QPRF)&#xa;(version 1.1, May 2008)"/>
                             <Property name="name" type="java.lang.String" value="qprfReportTitle" noResource="true"/>
@@ -864,6 +865,7 @@
                         <Component class="javax.swing.JTextArea" name="qprfReportDescription">
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
+                            <Property name="lineWrap" type="boolean" value="true"/>
                             <Property name="rows" type="int" value="5"/>
                             <Property name="name" type="java.lang.String" value="qprfReportDescription" noResource="true"/>
                           </Properties>
@@ -896,7 +898,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jTabbedPane2" alignment="0" pref="369" max="32767" attributes="0"/>
+                  <Component id="jTabbedPane2" alignment="0" pref="371" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -949,7 +951,7 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="78" max="32767" attributes="0"/>
+                              <EmptySpace pref="80" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1085,9 +1087,9 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jComboBox6" alignment="0" pref="77" max="32767" attributes="1"/>
-                                      <Component id="jComboBox5" alignment="0" max="32767" attributes="1"/>
-                                      <Component id="jComboBox4" alignment="0" max="32767" attributes="1"/>
+                                      <Component id="yearModelInfoCombo" alignment="0" pref="77" max="32767" attributes="1"/>
+                                      <Component id="monthModelInfoCombo" alignment="0" max="32767" attributes="1"/>
+                                      <Component id="dayModelInfoCombo" alignment="0" max="32767" attributes="1"/>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -1109,11 +1111,11 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="jComboBox4" min="-2" max="-2" attributes="0"/>
+                                          <Component id="dayModelInfoCombo" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jComboBox5" min="-2" max="-2" attributes="0"/>
+                                          <Component id="monthModelInfoCombo" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                                          <Component id="jComboBox6" min="-2" max="-2" attributes="0"/>
+                                          <Component id="yearModelInfoCombo" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="jScrollPane6" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -1123,18 +1125,18 @@
                         </DimensionLayout>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JComboBox" name="jComboBox6">
+                        <Component class="javax.swing.JComboBox" name="yearModelInfoCombo">
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="new javax.swing.DefaultComboBoxModel(yearsM)" type="code"/>
                             </Property>
-                            <Property name="name" type="java.lang.String" value="jComboBox6" noResource="true"/>
+                            <Property name="name" type="java.lang.String" value="yearModelInfoCombo" noResource="true"/>
                           </Properties>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="// Days 1-31:&#xa;        String[] yearsM = new String[31];        &#xa;        for (int yI = 1; yI&lt;=31 ; yI++){&#xa;            yearsM[yI-1] = &quot;&quot;+(yI+1997);&#xa;        }"/>
                           </AuxValues>
                         </Component>
-                        <Component class="javax.swing.JComboBox" name="jComboBox5">
+                        <Component class="javax.swing.JComboBox" name="monthModelInfoCombo">
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                               <StringArray count="12">
@@ -1152,7 +1154,7 @@
                                 <StringItem index="11" value="Dec"/>
                               </StringArray>
                             </Property>
-                            <Property name="name" type="java.lang.String" value="jComboBox5" noResource="true"/>
+                            <Property name="name" type="java.lang.String" value="monthModelInfoCombo" noResource="true"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel6">
@@ -1161,12 +1163,12 @@
                             <Property name="name" type="java.lang.String" value="jLabel6" noResource="true"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JComboBox" name="jComboBox4">
+                        <Component class="javax.swing.JComboBox" name="dayModelInfoCombo">
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="new javax.swing.DefaultComboBoxModel(daysM)" type="code"/>
                             </Property>
-                            <Property name="name" type="java.lang.String" value="jComboBox4" noResource="true"/>
+                            <Property name="name" type="java.lang.String" value="dayModelInfoCombo" noResource="true"/>
                           </Properties>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="// Days 1-31:&#xa;        String[] daysM = new String[31];&#xa;        for (int dayI = 1; dayI&lt;=31 ; dayI++){&#xa;            daysM[dayI-1] = &quot;&quot;+dayI;&#xa;        }"/>
@@ -1191,6 +1193,7 @@
                             <Component class="javax.swing.JTextArea" name="modelVersionText">
                               <Properties>
                                 <Property name="columns" type="int" value="20"/>
+                                <Property name="lineWrap" type="boolean" value="true"/>
                                 <Property name="rows" type="int" value="5"/>
                                 <Property name="name" type="java.lang.String" value="modelVersionText" noResource="true"/>
                               </Properties>
@@ -1240,12 +1243,12 @@
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane4" pref="116" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane4" pref="117" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane5" pref="107" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane5" pref="108" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
                           </Group>
@@ -1272,6 +1275,7 @@
                         <Component class="javax.swing.JTextArea" name="qmrfReportReferenceArea">
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
+                            <Property name="lineWrap" type="boolean" value="true"/>
                             <Property name="rows" type="int" value="5"/>
                             <Property name="name" type="java.lang.String" value="qmrfReportReferenceArea" noResource="true"/>
                           </Properties>
@@ -1297,6 +1301,7 @@
                         <Component class="javax.swing.JTextArea" name="qmrfReportDiscussionArea">
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
+                            <Property name="lineWrap" type="boolean" value="true"/>
                             <Property name="rows" type="int" value="5"/>
                             <Property name="name" type="java.lang.String" value="qmrfReportDiscussionArea" noResource="true"/>
                           </Properties>
@@ -1329,7 +1334,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jTabbedPane3" alignment="0" pref="369" max="32767" attributes="0"/>
+                  <Component id="jTabbedPane3" alignment="0" pref="371" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -1530,13 +1535,13 @@
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="jScrollPane11" pref="113" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane11" pref="115" max="32767" attributes="0"/>
                                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" max="-2" attributes="0"/>
                                       <Component id="jScrollPane12" pref="114" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="jScrollPane13" pref="279" max="32767" attributes="2"/>
+                                  <Component id="jScrollPane13" pref="281" max="32767" attributes="2"/>
                               </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -1567,6 +1572,7 @@
                         <Component class="javax.swing.JTextArea" name="commentOnPrediction">
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
+                            <Property name="lineWrap" type="boolean" value="true"/>
                             <Property name="rows" type="int" value="5"/>
                             <Property name="name" type="java.lang.String" value="commentOnPrediction" noResource="true"/>
                           </Properties>
@@ -1592,6 +1598,7 @@
                         <Component class="javax.swing.JTextArea" name="commentOnUncertainty">
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
+                            <Property name="lineWrap" type="boolean" value="true"/>
                             <Property name="rows" type="int" value="5"/>
                             <Property name="name" type="java.lang.String" value="commentOnUncertainty" noResource="true"/>
                           </Properties>
@@ -1611,6 +1618,7 @@
                         <Component class="javax.swing.JTextArea" name="chemBiolMechanisms">
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
+                            <Property name="lineWrap" type="boolean" value="true"/>
                             <Property name="rows" type="int" value="5"/>
                             <Property name="name" type="java.lang.String" value="chemBiolMechanisms" noResource="true"/>
                           </Properties>
@@ -1653,7 +1661,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jTabbedPane4" alignment="0" pref="369" max="32767" attributes="0"/>
+                  <Component id="jTabbedPane4" alignment="0" pref="371" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -1715,7 +1723,7 @@
                                   <Component id="jLabel23" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="doaResultLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="167" max="32767" attributes="0"/>
+                              <EmptySpace pref="169" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1803,11 +1811,11 @@
                               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jScrollPane14" pref="109" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane14" pref="110" max="32767" attributes="0"/>
                                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                                      <Component id="jScrollPane15" pref="116" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane15" pref="117" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="jPanel15" max="32767" attributes="0"/>
                               </Group>
@@ -1828,8 +1836,11 @@
                       <SubComponents>
                         <Component class="javax.swing.JLabel" name="jLabel20">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value=" Similarity Level :  "/>
+                            <Property name="text" type="java.lang.String" value=" Similarity :"/>
                             <Property name="name" type="java.lang.String" value="jLabel20" noResource="true"/>
+                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[80, 34]"/>
+                            </Property>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="similarityField">
@@ -1865,6 +1876,20 @@
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="acquireStrAnaloguesButtonActionPerformed"/>
                           </Events>
                         </Component>
+                        <Component class="javax.swing.JButton" name="jButton1">
+                          <Properties>
+                            <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/qedit/resources/go-bottom.png"/>
+                            </Property>
+                            <Property name="text" type="java.lang.String" value="Exp. Values"/>
+                            <Property name="toolTipText" type="java.lang.String" value="Download experimental values"/>
+                            <Property name="enabled" type="boolean" value="false"/>
+                            <Property name="focusable" type="boolean" value="false"/>
+                            <Property name="horizontalTextPosition" type="int" value="0"/>
+                            <Property name="name" type="java.lang.String" value="jButton1" noResource="true"/>
+                            <Property name="verticalTextPosition" type="int" value="3"/>
+                          </Properties>
+                        </Component>
                         <Component class="javax.swing.JToolBar$Separator" name="jSeparator2">
                           <Properties>
                             <Property name="name" type="java.lang.String" value="jSeparator2" noResource="true"/>
@@ -1876,6 +1901,7 @@
                               <Image iconType="3" name="/qedit/resources/draw-spiral.png"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Compound Info"/>
+                            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&lt;p width=&quot;300&quot;&gt;Access available details from the selected compound in the table&lt;/p&gt;"/>
                             <Property name="enabled" type="boolean" value="false"/>
                             <Property name="focusable" type="boolean" value="false"/>
                             <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -1884,6 +1910,27 @@
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="strAnDetailsActionPerformed"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JToolBar$Separator" name="jSeparator3">
+                          <Properties>
+                            <Property name="name" type="java.lang.String" value="jSeparator3" noResource="true"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JButton" name="strAnRemoveButton">
+                          <Properties>
+                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/qedit/resources/list-remove.png"/>
+                            </Property>
+                            <Property name="text" type="java.lang.String" value="Remove"/>
+                            <Property name="enabled" type="boolean" value="false"/>
+                            <Property name="focusable" type="boolean" value="false"/>
+                            <Property name="horizontalTextPosition" type="int" value="0"/>
+                            <Property name="name" type="java.lang.String" value="strAnRemoveButton" noResource="true"/>
+                            <Property name="verticalTextPosition" type="int" value="3"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="strAnRemoveButtonActionPerformed"/>
                           </Events>
                         </Component>
                       </SubComponents>
@@ -1931,6 +1978,7 @@
                         <Component class="javax.swing.JTextArea" name="considerationsOnAnaloguesText">
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
+                            <Property name="lineWrap" type="boolean" value="true"/>
                             <Property name="rows" type="int" value="5"/>
                             <Property name="name" type="java.lang.String" value="considerationsOnAnaloguesText" noResource="true"/>
                           </Properties>
@@ -1965,7 +2013,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jToolBar5" min="-2" pref="25" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="strAnDepiction" pref="202" max="32767" attributes="0"/>
+                                  <Component id="strAnDepiction" pref="204" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -2058,8 +2106,8 @@
                               </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane17" pref="118" max="32767" attributes="2"/>
-                                  <Component id="jScrollPane19" alignment="0" pref="118" max="32767" attributes="2"/>
+                                  <Component id="jScrollPane17" pref="119" max="32767" attributes="2"/>
+                                  <Component id="jScrollPane19" alignment="0" pref="119" max="32767" attributes="2"/>
                               </Group>
                               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -2068,10 +2116,10 @@
                               </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jScrollPane20" pref="126" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane20" pref="127" max="32767" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace min="3" pref="3" max="3" attributes="0"/>
-                                      <Component id="jScrollPane18" pref="123" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane18" pref="124" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -2099,6 +2147,7 @@
                         <Component class="javax.swing.JTextArea" name="metabolicDomain">
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
+                            <Property name="lineWrap" type="boolean" value="true"/>
                             <Property name="rows" type="int" value="5"/>
                             <Property name="name" type="java.lang.String" value="metabolicDomain" noResource="true"/>
                           </Properties>
@@ -2124,6 +2173,7 @@
                         <Component class="javax.swing.JTextArea" name="structFragmentDomain">
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
+                            <Property name="lineWrap" type="boolean" value="true"/>
                             <Property name="rows" type="int" value="5"/>
                             <Property name="name" type="java.lang.String" value="structFragmentDomain" noResource="true"/>
                           </Properties>
@@ -2143,6 +2193,7 @@
                         <Component class="javax.swing.JTextArea" name="descriptorsDomain">
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
+                            <Property name="lineWrap" type="boolean" value="true"/>
                             <Property name="rows" type="int" value="5"/>
                             <Property name="name" type="java.lang.String" value="descriptorsDomain" noResource="true"/>
                           </Properties>
@@ -2162,6 +2213,7 @@
                         <Component class="javax.swing.JTextArea" name="mechanismDomain">
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
+                            <Property name="lineWrap" type="boolean" value="true"/>
                             <Property name="rows" type="int" value="5"/>
                             <Property name="name" type="java.lang.String" value="mechanismDomain" noResource="true"/>
                           </Properties>
@@ -2239,12 +2291,12 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane8" pref="127" max="32767" attributes="0"/>
+                              <Component id="jScrollPane8" pref="128" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Component id="jScrollPane7" pref="127" max="32767" attributes="0"/>
+                              <Component id="jScrollPane7" pref="128" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
@@ -2254,8 +2306,8 @@
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane10" pref="140" max="32767" attributes="2"/>
-                          <Component id="jScrollPane9" alignment="0" pref="140" max="32767" attributes="2"/>
+                          <Component id="jScrollPane10" pref="141" max="32767" attributes="2"/>
+                          <Component id="jScrollPane9" alignment="0" pref="141" max="32767" attributes="2"/>
                       </Group>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   </Group>
@@ -2276,6 +2328,7 @@
                 <Component class="javax.swing.JTextArea" name="regulatoryPurposeArea">
                   <Properties>
                     <Property name="columns" type="int" value="20"/>
+                    <Property name="lineWrap" type="boolean" value="true"/>
                     <Property name="rows" type="int" value="5"/>
                     <Property name="name" type="java.lang.String" value="regulatoryPurposeArea" noResource="true"/>
                   </Properties>
@@ -2301,6 +2354,7 @@
                 <Component class="javax.swing.JTextArea" name="regulatoryInterpretationArea">
                   <Properties>
                     <Property name="columns" type="int" value="20"/>
+                    <Property name="lineWrap" type="boolean" value="true"/>
                     <Property name="rows" type="int" value="5"/>
                     <Property name="name" type="java.lang.String" value="regulatoryInterpretationArea" noResource="true"/>
                   </Properties>
@@ -2332,6 +2386,7 @@
                 <Component class="javax.swing.JTextArea" name="reportOutcomeArea">
                   <Properties>
                     <Property name="columns" type="int" value="20"/>
+                    <Property name="lineWrap" type="boolean" value="true"/>
                     <Property name="rows" type="int" value="5"/>
                     <Property name="name" type="java.lang.String" value="reportOutcomeArea" noResource="true"/>
                   </Properties>
@@ -2351,6 +2406,7 @@
                 <Component class="javax.swing.JTextArea" name="reportConclusionArea">
                   <Properties>
                     <Property name="columns" type="int" value="20"/>
+                    <Property name="lineWrap" type="boolean" value="true"/>
                     <Property name="rows" type="int" value="5"/>
                     <Property name="name" type="java.lang.String" value="reportConclusionArea" noResource="true"/>
                   </Properties>
