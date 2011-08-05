@@ -333,7 +333,6 @@ public class QEditView extends FrameView {
         progressBar = new javax.swing.JProgressBar();
         basicToolbar = new javax.swing.JToolBar();
         newBlankReportButton = new javax.swing.JButton();
-        newReportButton = new javax.swing.JButton();
         openLocalResourceButton = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
@@ -551,7 +550,9 @@ public class QEditView extends FrameView {
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(QEditView.class, this);
         exitMenuItem.setAction(actionMap.get("quit")); // NOI18N
+        exitMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
         exitMenuItem.setIcon(resourceMap.getIcon("exitMenuItem.icon")); // NOI18N
+        exitMenuItem.setText(resourceMap.getString("exitMenuItem.text")); // NOI18N
         exitMenuItem.setName("exitMenuItem"); // NOI18N
         fileMenu.add(exitMenuItem);
 
@@ -628,6 +629,7 @@ public class QEditView extends FrameView {
         helpMenu.add(helpItem);
 
         aboutMenuItem.setAction(actionMap.get("showAboutBox")); // NOI18N
+        aboutMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
         aboutMenuItem.setIcon(resourceMap.getIcon("aboutMenuItem.icon")); // NOI18N
         aboutMenuItem.setName("aboutMenuItem"); // NOI18N
         helpMenu.add(aboutMenuItem);
@@ -698,6 +700,7 @@ public class QEditView extends FrameView {
         basicToolbar.setName("basicToolbar"); // NOI18N
 
         newBlankReportButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qedit/resources/archive-insert.png"))); // NOI18N
+        newBlankReportButton.setToolTipText(resourceMap.getString("newBlankReportButton.toolTipText")); // NOI18N
         newBlankReportButton.setFocusable(false);
         newBlankReportButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         newBlankReportButton.setName("newBlankReportButton"); // NOI18N
@@ -708,13 +711,6 @@ public class QEditView extends FrameView {
             }
         });
         basicToolbar.add(newBlankReportButton);
-
-        newReportButton.setIcon(resourceMap.getIcon("newReportButton.icon")); // NOI18N
-        newReportButton.setFocusable(false);
-        newReportButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        newReportButton.setName("newReportButton"); // NOI18N
-        newReportButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        basicToolbar.add(newReportButton);
 
         openLocalResourceButton.setAction(actionMap.get("openFileAction")); // NOI18N
         openLocalResourceButton.setFocusable(false);
@@ -1049,7 +1045,6 @@ public class QEditView extends FrameView {
     private javax.swing.JButton newBlankReportButton;
     private javax.swing.JMenuItem newEmptyReport;
     private javax.swing.JMenu newProjectSubMenu;
-    private javax.swing.JButton newReportButton;
     private javax.swing.JMenuItem openFileMenuItem;
     private javax.swing.JButton openLocalResourceButton;
     private javax.swing.JMenuItem openSessionItem;

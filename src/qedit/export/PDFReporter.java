@@ -321,38 +321,53 @@ public class PDFReporter {
          * 
          * Structural Analogues
          */
-        ArrayList<String> experimentalValues = qprfReport.getExperimentalValues();
-        Iterator<String> experimentalValuesIterator = experimentalValues.iterator();
-        for (Compound anal : analogues) {
-            structuralAnalogues.addCell(new PdfPCell(new Phrase(anal.getCasrn(), NORMAL_FONT)));
-            if (anal.getDepiction(null) != null) {
-                try {
-                    Image my = Image.getInstance(anal.getDepiction(null).getImage(), java.awt.Color.BLACK);
-                    PdfPCell imageCell = new PdfPCell(my, true);
-                    imageCell.setPadding(1);
-                    structuralAnalogues.addCell(imageCell);
-                } catch (BadElementException ex) {
-                    Logger.getLogger(PDFReporter.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(PDFReporter.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {// No Image available
-                PdfPCell noImage = new PdfPCell(new Phrase("No Image", NORMAL_FONT));
-                noImage.setHorizontalAlignment(Element.ALIGN_CENTER);
-                structuralAnalogues.addCell(noImage);
-            }
-            structuralAnalogues.addCell(new PdfPCell(new Phrase(anal.getSmiles(), NORMAL_FONT)));
-            structuralAnalogues.addCell(new PdfPCell(new Phrase(experimentalValuesIterator.next(), NORMAL_FONT)));
-        }
-        pdf.addElement(structuralAnalogues);
 
+        if (analogues != null && !analogues.isEmpty()) {
+            ArrayList<String> experimentalValues = qprfReport.getExperimentalValues();
+            boolean expValuesPresent = experimentalValues != null && !experimentalValues.isEmpty();
+            Iterator<String> experimentalValuesIterator = null;
+            if (expValuesPresent) {
+                experimentalValuesIterator = experimentalValues.iterator();
+            }
+            for (Compound anal : analogues) {
+                structuralAnalogues.addCell(new PdfPCell(new Phrase(anal.getCasrn(), NORMAL_FONT)));
+                if (anal.getDepiction(null) != null) {
+                    try {
+                        Image my = Image.getInstance(anal.getDepiction(null).getImage(), java.awt.Color.BLACK);
+                        PdfPCell imageCell = new PdfPCell(my, true);
+                        imageCell.setPadding(1);
+                        structuralAnalogues.addCell(imageCell);
+                    } catch (BadElementException ex) {
+                        Logger.getLogger(PDFReporter.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(PDFReporter.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {// No Image available
+                    PdfPCell noImage = new PdfPCell(new Phrase("No Image", NORMAL_FONT));
+                    noImage.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    structuralAnalogues.addCell(noImage);
+                }
+                structuralAnalogues.addCell(new PdfPCell(new Phrase(anal.getSmiles(), NORMAL_FONT)));
+                if (expValuesPresent) {
+                    structuralAnalogues.addCell(new PdfPCell(new Phrase(experimentalValuesIterator.next(), NORMAL_FONT)));
+                } else {
+                    structuralAnalogues.addCell(new PdfPCell(new Phrase("", NORMAL_FONT)));
+                }
+            }
+            pdf.addElement(structuralAnalogues);
+        }
         pdf.addElement(new Paragraph(Chunk.NEWLINE));
         pdf.addElement(new Paragraph(Chunk.NEWLINE));
         /*
          * Section 4: Adequacy Information
          */
 
-        if (true) {
+        boolean anyAdequacyInfo = reportMeta != null && ((reportMeta.getSec_4_1() != null && !reportMeta.getSec_4_1().isEmpty())
+                || (reportMeta.getSec_4_2() != null && !reportMeta.getSec_4_2().isEmpty())
+                || (reportMeta.getSec_4_3() != null && !reportMeta.getSec_4_3().isEmpty())
+                || (reportMeta.getSec_4_4() != null && !reportMeta.getSec_4_4().isEmpty()));
+
+        if (anyAdequacyInfo) {
             pdf.addElement(new MyParagraph(new Chunk("4. Adequacy", BOLD_FONT)));
             pdf.addElement(new MyParagraph(new Chunk("The information provided in this section might be useful, "
                     + "depending on the reporting needs and formats of the regulatory framework of interest.",

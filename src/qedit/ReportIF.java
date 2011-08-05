@@ -7,6 +7,7 @@ package qedit;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -34,6 +35,7 @@ import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.text.JTextComponent;
+import org.jdesktop.application.Action;
 import org.opentox.toxotis.client.VRI;
 import org.opentox.toxotis.core.component.Compound;
 import org.opentox.toxotis.core.component.Feature;
@@ -112,11 +114,11 @@ public class ReportIF extends javax.swing.JInternalFrame {
         /*
          * Similarity Level
          */
-        if (getReport().getStructuralAnalogues()!=null && 
-                !getReport().getStructuralAnalogues().isEmpty()){
-            similarityField.setText(getReport().getSimilarityLevel()+"");    
+        if (getReport().getStructuralAnalogues() != null
+                && !getReport().getStructuralAnalogues().isEmpty()) {
+            similarityField.setText(getReport().getSimilarityLevel() + "");
         }
-        
+
         /*
          * synchronize metainfo
          */
@@ -374,12 +376,16 @@ public class ReportIF extends javax.swing.JInternalFrame {
          * Store all exp. values for structural analogues
          * (The user migth have added some)
          */
-        DefaultTableModel analoguesTableModel = (DefaultTableModel)analoguesTable.getModel();
-        for (int i=0;i<getReport().getExperimentalValues().size();i++){
+        DefaultTableModel analoguesTableModel = (DefaultTableModel) analoguesTable.getModel();
+        if (getReport().getExperimentalValues() != null
+                || (getReport().getExperimentalValues() != null && !getReport().getExperimentalValues().isEmpty())) {
+
+            for (int i = 0; i < getReport().getExperimentalValues().size(); i++) {
                 getReport().getExperimentalValues().set(i, analoguesTableModel.getValueAt(i, 1).toString());
+            }
         }
-        
-        
+
+
     }
 
     public void updateStrAnal() {
@@ -426,6 +432,12 @@ public class ReportIF extends javax.swing.JInternalFrame {
      * 
      * 
      */
+
+    @Action
+    public void loadCompound() {
+        CompoundInfo task = new CompoundInfo(this, compoundIdentifier.getText(), basePanel);
+        task.runInBackground();
+    }
 
     public void deleteCompoundFields() {
         ImageIcon noImage = org.jdesktop.application.Application.getInstance(qedit.QEditApp.class).getContext().getResourceMap(ReportIF.class).getImageIcon("structureImage.icon");
@@ -566,6 +578,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
     }
 
     private void acquireListOfAnalogues() {
+        strAnDetails.setEnabled(false);
         StructAnalogues task = new StructAnalogues(this);
         task.runInBackground();
     }
@@ -893,6 +906,11 @@ public class ReportIF extends javax.swing.JInternalFrame {
         compoundIdentifier.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 compoundIdentifierCaretUpdate(evt);
+            }
+        });
+        compoundIdentifier.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                compoundIdentifierKeyReleased(evt);
             }
         });
 
@@ -1375,6 +1393,11 @@ public class ReportIF extends javax.swing.JInternalFrame {
         modelUriField.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 modelUriFieldCaretUpdate(evt);
+            }
+        });
+        modelUriField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                modelUriFieldKeyReleased(evt);
             }
         });
 
@@ -1903,6 +1926,11 @@ public class ReportIF extends javax.swing.JInternalFrame {
                 similarityFieldCaretUpdate(evt);
             }
         });
+        similarityField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                similarityFieldKeyReleased(evt);
+            }
+        });
         jToolBar4.add(similarityField);
 
         acquireStrAnaloguesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qedit/resources/vcs_update.png"))); // NOI18N
@@ -2309,8 +2337,7 @@ public class ReportIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_compoundIdentifierCaretUpdate
 
     private void loadCompoundButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadCompoundButtonActionPerformed
-        CompoundInfo task = new CompoundInfo(this, compoundIdentifier.getText(), basePanel);
-        task.runInBackground();
+        loadCompound();
 
     }//GEN-LAST:event_loadCompoundButtonActionPerformed
 
@@ -2506,7 +2533,6 @@ public class ReportIF extends javax.swing.JInternalFrame {
 }//GEN-LAST:event_strAnDetailsActionPerformed
 
     private void acquireStrAnaloguesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acquireStrAnaloguesButtonActionPerformed
-        strAnDetails.setEnabled(false);
         acquireListOfAnalogues();
 }//GEN-LAST:event_acquireStrAnaloguesButtonActionPerformed
 
@@ -2540,12 +2566,12 @@ public class ReportIF extends javax.swing.JInternalFrame {
 
     private void strAnRemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_strAnRemoveButtonActionPerformed
         int selRowIndex = analoguesTable.getSelectedRow();
-        if (getReport().getStructuralAnalogues() != null &&
-                !getReport().getStructuralAnalogues().isEmpty()) {
+        if (getReport().getStructuralAnalogues() != null
+                && !getReport().getStructuralAnalogues().isEmpty()) {
             getReport().getStructuralAnalogues().remove(selRowIndex);
         }
-        if (getReport().getExperimentalValues()!=null && !getReport().getExperimentalValues().isEmpty()){
-        getReport().getExperimentalValues().remove(selRowIndex);
+        if (getReport().getExperimentalValues() != null && !getReport().getExperimentalValues().isEmpty()) {
+            getReport().getExperimentalValues().remove(selRowIndex);
         }
         DefaultTableModel analoguesTableModel = (DefaultTableModel) analoguesTable.getModel();
         analoguesTableModel.removeRow(selRowIndex);
@@ -2556,6 +2582,26 @@ public class ReportIF extends javax.swing.JInternalFrame {
         DwnloadExpValues task = new DwnloadExpValues(this);
         task.runInBackground();
     }//GEN-LAST:event_dwnExpValuesButtonActionPerformed
+
+    private void compoundIdentifierKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_compoundIdentifierKeyReleased
+        String compoundKeywordString = compoundIdentifier.getText().trim();
+        if (KeyEvent.VK_ENTER == evt.getKeyCode() && !compoundKeywordString.isEmpty()) {
+            loadCompound();
+        }
+    }//GEN-LAST:event_compoundIdentifierKeyReleased
+
+    private void modelUriFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_modelUriFieldKeyReleased
+        String modelUriString = modelUriField.getText().trim();
+        if (KeyEvent.VK_ENTER == evt.getKeyCode() && !modelUriString.isEmpty()) {
+            loadModel();
+        }
+    }//GEN-LAST:event_modelUriFieldKeyReleased
+
+    private void similarityFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_similarityFieldKeyReleased
+        if (KeyEvent.VK_ENTER == evt.getKeyCode() && acquireStrAnaloguesButton.isEnabled()) {
+            acquireListOfAnalogues();
+        }
+    }//GEN-LAST:event_similarityFieldKeyReleased
 
     private void displayImageStructAnalogue() {
         int index = analoguesTable.getSelectedRow();
