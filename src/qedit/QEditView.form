@@ -305,6 +305,7 @@
                 </Property>
                 <Property name="mnemonic" type="int" value="68"/>
                 <Property name="text" type="java.lang.String" resourceKey="wordReportMenuItem.text"/>
+                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="name" type="java.lang.String" value="wordReportMenuItem" noResource="true"/>
               </Properties>
             </MenuItem>
@@ -317,6 +318,9 @@
                 <Property name="text" type="java.lang.String" resourceKey="exportAsPdfMenuItem.text"/>
                 <Property name="name" type="java.lang.String" value="exportAsPdfMenuItem" noResource="true"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportAsPdfMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -344,8 +348,8 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
               <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Alt+A"/>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="qedit.QEditView" id="authenticationAction" methodName="authenticationAction"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" resourceKey="jMenuItem2.icon"/>
                 <Property name="text" type="java.lang.String" resourceKey="jMenuItem2.text"/>
@@ -572,6 +576,7 @@
               <Image iconType="3" name="/qedit/resources/application-msword.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" resourceKey="exportDocButton.toolTipText"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="name" type="java.lang.String" value="exportDocButton" noResource="true"/>
@@ -581,7 +586,7 @@
         <Component class="javax.swing.JButton" name="exportPdfButton">
           <Properties>
             <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
-              <action class="qedit.QEditView" id="exportDocumentAsPDF" methodName="exportDocumentAsPDF"/>
+              <action class="qedit.QEditView" id="exportAsPrf" methodName="exportAsPrf"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" resourceKey="exportPdfButton.icon"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="exportPdfButton.toolTipText"/>
@@ -732,6 +737,11 @@
         </MenuItem>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JFileChooser" name="exportPdfFileChooser">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="exportPdfFileChooser" noResource="true"/>
+      </Properties>
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="component" type="javax.swing.JComponent" editor="org.netbeans.modules.form.ComponentChooserEditor">

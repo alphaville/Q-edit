@@ -35,6 +35,7 @@ import qedit.hints.TooManyOpenDocsWarning;
 import qedit.task.AbstractTask;
 import qedit.task.EmptyReportTask;
 import qedit.task.Logout;
+import qedit.task.PDFExportTask;
 import qedit.task.ReportLoader;
 import qedit.task.Salvador;
 
@@ -124,6 +125,20 @@ public class QEditView extends FrameView {
     public static void increaseNumOpenDocuments() {
         numOpenInternalFrames++;
     }
+    
+    @Action
+    public void authenticationAction(){
+        JFrame jframe = QEditApp.getView().getFrame();
+        Authenticate authenticate = new Authenticate(null, jframe, false);
+        int frameWidth = jframe.getWidth();
+        int frameHeight = jframe.getHeight();
+        int dialogWidht = authenticate.getWidth();
+        int dialogHeight = authenticate.getHeight();
+        int dialog_x = (frameWidth - dialogWidht) / 2;
+        int dialog_y = (frameHeight - dialogHeight) / 2;
+        authenticate.setBounds(dialog_x, dialog_y, dialogWidht, dialogHeight);
+        authenticate.setVisible(true);
+    }
 
     @Action
     public void quit() {
@@ -156,20 +171,37 @@ public class QEditView extends FrameView {
             getStatusLabel().setText("No report loaded!");
             return;
         }
-        
+
         ReportLoader loaderTask = new ReportLoader(localFileChooserWindow);
         loaderTask.runInBackground();
 
     }
 
     @Action
+    public void exportAsPrf() {
+        final ReportIF rif = (ReportIF) desktopPane.getSelectedFrame();
+        if (rif == null) {
+            getStatusLabel().setText("No document was selected to be exported as PDF!");
+            return;
+        }
+        exportPdfFileChooser = new JFileChooser();
+        exportPdfFileChooser.setFileFilter(new FileNameExtensionFilter("QPRF Reports", "ro"));
+        exportPdfFileChooser.setMultiSelectionEnabled(false);
+        exportPdfFileChooser.setDialogTitle("Export " + rif.getTitle() + " as PDF");
+        exportPdfFileChooser.showSaveDialog(mainPanel);
+        
+        PDFExportTask task = new PDFExportTask(exportPdfFileChooser, rif);
+        task.runInBackground();
+        
+    }
+
+    @Action
     public void saveDialogBox() {
         final ReportIF rif = (ReportIF) desktopPane.getSelectedFrame();
         if (rif == null) {
-            getStatusLabel().setText("No document selected to be saved!");
+            getStatusLabel().setText("No document was selected to be saved!");
             return;
         }
-        QEditApp.getView().getStatusLabel().setText("Saving Document");
         if (rif.getRelatedFile() == null) {
             saveFileChooserWindow = new JFileChooser();
             saveFileChooserWindow.setFileFilter(new FileNameExtensionFilter("QPRF Reports", "ro"));
@@ -320,6 +352,7 @@ public class QEditView extends FrameView {
         openSessionItem = new javax.swing.JMenuItem();
         clearSessionItem = new javax.swing.JMenuItem();
         clearEntireSessionMenuItem = new javax.swing.JMenuItem();
+        exportPdfFileChooser = new javax.swing.JFileChooser();
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(QEditView.class);
         mainPanel.setBackground(resourceMap.getColor("mainPanel.background")); // NOI18N
@@ -532,13 +565,20 @@ public class QEditView extends FrameView {
         wordReportMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qedit/resources/application-msword.png"))); // NOI18N
         wordReportMenuItem.setMnemonic('D');
         wordReportMenuItem.setText(resourceMap.getString("wordReportMenuItem.text")); // NOI18N
+        wordReportMenuItem.setEnabled(false);
         wordReportMenuItem.setName("wordReportMenuItem"); // NOI18N
         reportMenu.add(wordReportMenuItem);
 
         exportAsPdfMenuItem.setAction(actionMap.get("exportDocumentAsPDF")); // NOI18N
+        exportAsPdfMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_6, java.awt.event.InputEvent.CTRL_MASK));
         exportAsPdfMenuItem.setIcon(resourceMap.getIcon("exportAsPdfMenuItem.icon")); // NOI18N
         exportAsPdfMenuItem.setText(resourceMap.getString("exportAsPdfMenuItem.text")); // NOI18N
         exportAsPdfMenuItem.setName("exportAsPdfMenuItem"); // NOI18N
+        exportAsPdfMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportAsPdfMenuItemActionPerformed(evt);
+            }
+        });
         reportMenu.add(exportAsPdfMenuItem);
 
         menuBar.add(reportMenu);
@@ -556,6 +596,7 @@ public class QEditView extends FrameView {
         toolsReportSeparator.setName("toolsReportSeparator"); // NOI18N
         toolsMenu.add(toolsReportSeparator);
 
+        jMenuItem2.setAction(actionMap.get("authenticationAction")); // NOI18N
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem2.setIcon(resourceMap.getIcon("jMenuItem2.icon")); // NOI18N
         jMenuItem2.setText(resourceMap.getString("jMenuItem2.text")); // NOI18N
@@ -696,13 +737,14 @@ public class QEditView extends FrameView {
 
         exportDocButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qedit/resources/application-msword.png"))); // NOI18N
         exportDocButton.setToolTipText(resourceMap.getString("exportDocButton.toolTipText")); // NOI18N
+        exportDocButton.setEnabled(false);
         exportDocButton.setFocusable(false);
         exportDocButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         exportDocButton.setName("exportDocButton"); // NOI18N
         exportDocButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         basicToolbar.add(exportDocButton);
 
-        exportPdfButton.setAction(actionMap.get("exportDocumentAsPDF")); // NOI18N
+        exportPdfButton.setAction(actionMap.get("exportAsPrf")); // NOI18N
         exportPdfButton.setIcon(resourceMap.getIcon("exportPdfButton.icon")); // NOI18N
         exportPdfButton.setToolTipText(resourceMap.getString("exportPdfButton.toolTipText")); // NOI18N
         exportPdfButton.setFocusable(false);
@@ -822,6 +864,8 @@ public class QEditView extends FrameView {
             }
         });
         sessionPopupMenu.add(clearEntireSessionMenuItem);
+
+        exportPdfFileChooser.setName("exportPdfFileChooser"); // NOI18N
 
         setComponent(mainPanel);
         setMenuBar(menuBar);
@@ -964,18 +1008,13 @@ public class QEditView extends FrameView {
     }//GEN-LAST:event_logOutButtonActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        JFrame jframe = QEditApp.getView().getFrame();
-        Authenticate authenticate = new Authenticate(null, jframe, false);
-        int frameWidth = jframe.getWidth();
-        int frameHeight = jframe.getHeight();
-        int dialogWidht = authenticate.getWidth();
-        int dialogHeight = authenticate.getHeight();
-        int dialog_x = (frameWidth - dialogWidht) / 2;
-        int dialog_y = (frameHeight - dialogHeight) / 2;
-        authenticate.setBounds(dialog_x, dialog_y, dialogWidht, dialogHeight);
-        authenticate.setVisible(true);
+        authenticationAction();
 
     }//GEN-LAST:event_loginButtonActionPerformed
+
+    private void exportAsPdfMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportAsPdfMenuItemActionPerformed
+        exportAsPrf();
+    }//GEN-LAST:event_exportAsPdfMenuItemActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aboutToolButton;
     private javax.swing.JToolBar basicToolbar;
@@ -989,6 +1028,7 @@ public class QEditView extends FrameView {
     private javax.swing.JMenuItem exportAsPdfMenuItem;
     private javax.swing.JButton exportDocButton;
     private javax.swing.JButton exportPdfButton;
+    private javax.swing.JFileChooser exportPdfFileChooser;
     private javax.swing.JPopupMenu.Separator firstFileMenuSeparatorItem;
     private javax.swing.JMenuItem helpItem;
     private javax.swing.JMenuItem jMenuItem2;

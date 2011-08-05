@@ -4,6 +4,7 @@
  */
 package qedit.task;
 
+import org.opentox.toxotis.exceptions.impl.ServiceInvocationException;
 import org.opentox.toxotis.util.aa.AuthenticationToken;
 import qedit.QEditApp;
 
@@ -19,13 +20,19 @@ public class Login extends AbstractTask {
     public Login(String username, String password) {
         super();
         this.username = username;
-        this.password = password;        
+        this.password = password;
     }
 
     @Override
     protected Object doInBackground() throws Exception {
-        AuthenticationToken token = new AuthenticationToken(username, password);
-        QEditApp.setAuthentication(token);
-        return token;
+        try {
+            AuthenticationToken token = new AuthenticationToken(username, password);
+            QEditApp.setAuthentication(token);
+            return token;
+        } catch (final ServiceInvocationException sie) {
+            exceptionMessage = "Invalid credentials";
+            throw sie;
+        }
+
     }
 }
