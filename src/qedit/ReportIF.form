@@ -1365,28 +1365,23 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel15" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="experimentalValue" max="32767" attributes="1"/>
-                                          <Component id="predictionResult" alignment="1" pref="86" max="32767" attributes="1"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="expValueUnits" max="32767" attributes="1"/>
-                                          <Component id="predictionResultUnits" alignment="0" pref="41" max="32767" attributes="1"/>
-                                      </Group>
-                                      <EmptySpace pref="198" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Component id="jToolBar3" alignment="0" pref="589" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel15" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="experimentalValue" max="32767" attributes="1"/>
+                                  <Component id="predictionResult" alignment="1" pref="86" max="32767" attributes="1"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="expValueUnits" max="32767" attributes="1"/>
+                                  <Component id="predictionResultUnits" alignment="0" pref="41" max="32767" attributes="1"/>
+                              </Group>
+                              <EmptySpace pref="198" max="32767" attributes="0"/>
                           </Group>
+                          <Component id="jToolBar3" alignment="0" pref="601" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">

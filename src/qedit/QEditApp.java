@@ -10,6 +10,9 @@ import java.util.prefs.Preferences;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 import org.opentox.toxotis.util.aa.AuthenticationToken;
+import qedit.task.AbstractTask;
+import qedit.task.ReportLoader;
+import qedit.task.ReportOpener;
 
 /**
  * The main class of the application.
@@ -20,6 +23,7 @@ public class QEditApp extends SingleFrameApplication {
     private static QEditView theView;
     private static int magnificationMode = java.awt.Image.SCALE_DEFAULT;
     private static AuthenticationToken authentication;
+    private static String[] cla;
     
     public static AuthenticationToken getAuthentication() {
         return authentication;
@@ -48,6 +52,10 @@ public class QEditApp extends SingleFrameApplication {
     protected void startup() {
         theView = new QEditView(this);
         show(theView);
+        if (cla!=null && cla.length>=1){
+            ReportOpener task = new ReportOpener(new java.io.File(cla[0]));
+            task.runInBackground();
+        }
     }
 
     /**
@@ -73,6 +81,7 @@ public class QEditApp extends SingleFrameApplication {
      * Main method launching the application.
      */
     public static void main(String[] args) throws BackingStoreException {
+        cla = args;
         splash = new qedit.SplashScreen("resources/splash.png", null, 1000);
         try {
             Thread.sleep(1000);

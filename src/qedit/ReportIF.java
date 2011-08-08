@@ -48,6 +48,7 @@ import org.opentox.toxotis.exceptions.impl.ServiceInvocationException;
 import org.opentox.toxotis.ontology.LiteralValue;
 import org.opentox.toxotis.ontology.MetaInfo;
 import org.opentox.toxotis.ontology.impl.MetaInfoImpl;
+import org.opentox.toxotis.util.aa.SSLConfiguration;
 import qedit.helpers.AddAuthor;
 import qedit.helpers.AddSynonym;
 import qedit.helpers.AlgorithmDialog;
@@ -1710,22 +1711,19 @@ public class ReportIF extends javax.swing.JInternalFrame {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel16)
-                            .addComponent(jLabel15))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(experimentalValue)
-                            .addComponent(predictionResult, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(expValueUnits)
-                            .addComponent(predictionResultUnits, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE))
-                    .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel15))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(experimentalValue)
+                    .addComponent(predictionResult, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(expValueUnits)
+                    .addComponent(predictionResultUnits, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
+                .addContainerGap(198, Short.MAX_VALUE))
+            .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
