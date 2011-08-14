@@ -23,7 +23,7 @@ public class CompoundInfo extends AbstractTask {
     }
 
     @Override
-    protected Object doInBackground() throws Exception {        
+    protected Object doInBackground() throws Exception {
         intFrame.deleteCompoundFields();
         intFrame.getLoadCompoundButton().setEnabled(false);
         intFrame.getCompDetailsButton().setEnabled(false);
@@ -36,7 +36,8 @@ public class CompoundInfo extends AbstractTask {
             spider = new CompoundSpider(keyword,
                     "http://apps.ideaconsult.net:8080/ambit2/query/compound/%s/all");
         } catch (Exception ex) {
-            throw new Exception("asf");
+            exceptionMessage = "No such compound";
+            throw new Exception("Compound Spider Failed", ex);
         }
         Compound compound = spider.parse();
         compound.getConformers();
@@ -52,7 +53,7 @@ public class CompoundInfo extends AbstractTask {
             }
         } else {
             QEditApp.getView().getStatusLabel().setText("Failed to load synonyms...");
-        }        
+        }
         intFrame.getAcquireStrAnaloguesButton().setEnabled(true);
         intFrame.getSimilarityField().setEnabled(true);
         return new Object();
@@ -60,11 +61,9 @@ public class CompoundInfo extends AbstractTask {
 
     @Override
     protected void finished() {
-        intFrame.getLoadCompoundButton().setEnabled(true);   
+        intFrame.getLoadCompoundButton().setEnabled(true);
         super.finished();
     }
-    
-    
 
     private void printOutResults(Compound compound) {
         System.out.println("Compound found with URI : " + compound.getUri());
