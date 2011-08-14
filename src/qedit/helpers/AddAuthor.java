@@ -34,10 +34,24 @@ public final class AddAuthor extends javax.swing.JDialog {
     /** A return status code - returned if OK button has been pressed */
     public static final int RET_OK = 1;
     private ReportIF intFrame;
+    private QprfAuthor authorToUpdate;
 
     public AddAuthor(final ReportIF intFrame, java.awt.Frame parent, boolean modal) {
         this(parent, modal);
         this.intFrame = intFrame;
+    }
+
+    public AddAuthor(final ReportIF intFrame, final QprfAuthor author, java.awt.Frame parent, boolean modal) {
+        this(parent, modal);
+        this.authorToUpdate = author;
+        this.intFrame = intFrame;
+        setTitle("Update Author");
+        firstNameField.setText(nullToEmpty(authorToUpdate.getFirstName()));
+        lastNameField.setText(nullToEmpty(authorToUpdate.getLastName()));
+        emailField.setText(nullToEmpty(authorToUpdate.getEmail()));
+        addressField.setText(nullToEmpty(authorToUpdate.getAddress()));
+        affiliationField.setText(nullToEmpty(authorToUpdate.getAffiliation()));
+        webPageField.setText(nullToEmpty(authorToUpdate.getURL()));
     }
 
     /** Creates new form AddAuthor */
@@ -223,8 +237,16 @@ public final class AddAuthor extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private String nullToEmpty(String in) {
+        if (in == null) {
+            return "";
+        } else {
+            return in;
+        }
+    }
+
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        QprfAuthor author = new QprfAuthor(firstNameField.getText(),
+        QprfAuthor newAuthor = new QprfAuthor(firstNameField.getText(),
                 lastNameField.getText().trim(),
                 affiliationField.getText().trim(),
                 emailField.getText().trim(),
@@ -232,20 +254,31 @@ public final class AddAuthor extends javax.swing.JDialog {
                 null,
                 webPageField.getText().trim());
 
-        String name = author.getFirstName() + " " + author.getLastName();        
+        String oldname = null;
+        String name = newAuthor.getFirstName() + " " + newAuthor.getLastName();
         /*
          * Check whether the author is already registered!!!
          */
-        if (intFrame.getAUTHORSMAP().containsKey(name)) {
-            firstNameField.setBackground(Color.yellow);
-            lastNameField.setBackground(Color.yellow);
-            warningLabel.setText("Author already registered!");
-            warningLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qedit/resources/flag-red.png")));
-        } else {
-            ((DefaultListModel) intFrame.getAuthorsList().getModel()).addElement(name);
-            intFrame.getReport().getAuthors().add(author);
-            intFrame.getAUTHORSMAP().put(name, author);
+        if (authorToUpdate != null) {
+            oldname = authorToUpdate.getFirstName() + " " + authorToUpdate.getLastName();
+            intFrame.getAUTHORSMAP().remove(oldname);
+            intFrame.getAUTHORSMAP().put(name, newAuthor);
+            int selectedIndex = intFrame.getAuthorsList().getSelectedIndex();
+            ((DefaultListModel) intFrame.getAuthorsList().getModel()).set(selectedIndex, name);
+            intFrame.oneAuthorSelected();
             doClose(RET_OK);
+        } else {
+            if (intFrame.getAUTHORSMAP().containsKey(name)) {
+                firstNameField.setBackground(Color.yellow);
+                lastNameField.setBackground(Color.yellow);
+                warningLabel.setText("Author already registered!");
+                warningLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/qedit/resources/flag-red.png")));
+            } else {
+                ((DefaultListModel) intFrame.getAuthorsList().getModel()).addElement(name);
+                intFrame.getReport().getAuthors().add(newAuthor);
+                intFrame.getAUTHORSMAP().put(name, newAuthor);
+                doClose(RET_OK);
+            }
         }
     }//GEN-LAST:event_okButtonActionPerformed
 
