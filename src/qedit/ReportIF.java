@@ -62,6 +62,7 @@ import qedit.task.CompoundInfo;
 import qedit.task.DwnloadExpValues;
 import qedit.task.ExperimentalValueRetriever;
 import qedit.task.ImportModel;
+import qedit.task.PredictionTask;
 import qedit.task.StructAnalogues;
 
 /**
@@ -598,13 +599,8 @@ public class ReportIF extends javax.swing.JInternalFrame {
     }
 
     public void predict() {
-        SuperPredictor predictor = new SuperPredictor(getReport().getCompound(),
-                getReport().getModel(), QEditApp.getAuthentication());
-        LiteralValue litVal = predictor.prediction();
-        System.out.println("Prediction result : " + litVal);
-        if (litVal != null) {
-            predictionResult.setText(litVal.getValueAsString());
-        }
+        PredictionTask task = new PredictionTask(this);
+        task.runInBackground();
     }
 
     /*
@@ -624,6 +620,10 @@ public class ReportIF extends javax.swing.JInternalFrame {
 
     public java.io.File getRelatedFile() {
         return relatedFile;
+    }
+
+    public JTextField getPredictionResult() {
+        return predictionResult;
     }
 
     public void setRelatedFile(File relatedFile) {

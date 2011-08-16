@@ -33,8 +33,7 @@ public class CompoundInfo extends AbstractTask {
         intFrame.getSimilarityField().setEnabled(false);
         CompoundSpider spider = null;
         try {
-            spider = new CompoundSpider(keyword,
-                    "http://apps.ideaconsult.net:8080/ambit2/query/compound/%s/all");
+            spider = new CompoundSpider(keyword, null);
         } catch (Exception ex) {
             exceptionMessage = "No such compound";
             throw new Exception("Compound Spider Failed", ex);
