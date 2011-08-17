@@ -1,6 +1,7 @@
 h1. Q-edit
 
 h3. General
+
 |/2.Developers| "Pantelis Sopasakis":http://gr.linkedin.com/in/sopasakis     |
 |Charalambos Chomenides |
 |Master Project|"OpenTox":http://opentox.org |
@@ -9,9 +10,11 @@ h3. General
 |Programming Lang. | Java |
 
 h3. Download
+
 You can download the latest version of Q-edit from "this link":http://10.8.0.1/index.php/blog/78-q-edit.
 
 h3. Documentation
+
 Documentation can be found online "here":http://10.8.0.1/index.php/blog/78-q-edit.
 
 
