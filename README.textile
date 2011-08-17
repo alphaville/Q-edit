@@ -1,0 +1,7 @@
+h1. Q-edit
+
+|Developers|
+* Pantelis Sopasakis
+* Charalambos Chomenides|
+|Version|1.0.18|
+_
