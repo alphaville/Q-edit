@@ -9,13 +9,17 @@ h3. General
 |Version|1.0.18|
 |Programming Lang. | Java |
 
+h3. About
+
+
+
 h3. Download
 
 You can download the latest version of Q-edit from "this link":http://10.8.0.1/index.php/blog/78-q-edit.
 
 h3. Documentation
 
-Documentation can be found online "here":http://10.8.0.1/index.php/blog/78-q-edit.
+Documentation can be found online "here":http://10.8.0.1/index.php/blog/78-q-edit. There you'll find instructions on how to install and use Q-edit.
 
 h3. Development
 
@@ -25,4 +29,4 @@ If you're a developer and you need to either compile Q-edit on your own, inspect
 git clone git://github.com/alphaville/Q-edit.git
 </code>
 
-and then download the necessary dependencies from "this link":http://opentox.ntua.gr/files/lib.zip.
+and then download the necessary dependencies from "this link":http://opentox.ntua.gr/files/lib.zip. The file "build.xml":https://github.com/alphaville/Q-edit/blob/master/build.xml is included in the distribution to facilitate compilation using Ant. The target "package-for-store":https://github.com/alphaville/Q-edit/blob/master/build.xml#L78 helps you compile a jar file for Q-edit with all dependencies. 
