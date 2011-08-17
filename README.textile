@@ -1,5 +1,9 @@
 h1. Q-edit
 
-|Developers| * Pantelis Sopasakis * Charalambos Chomenides|
+|Developers| "Pantelis Sopasakis":http://gr.linkedin.com/in/sopasakis     |
+|          | Charalambos Chomenides |
+|Master Project|"OpenTox":http://opentox.org |
+|Vendor    |"National Technical University of Athens":http://www.ntua.gr|
 |Version|1.0.18|
+|Programming Lang. | Java |
 _
