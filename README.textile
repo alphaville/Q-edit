@@ -9,7 +9,7 @@ h3. General
 |Version|1.0.18|
 |Programming Lang. | Java |
 |Documentation | "Link":http://opentox.ntua.gr/index.php/blog/78-q-edit |
-|Download Page | "Link":http://opentox.ntua.gr/index.php/blog/78-q-edit |
+|Download Page | "Link":http://opentox.ntua.gr/index.php/blog/78-q-edit#download |
 
 h3. About
 
@@ -17,11 +17,11 @@ The QSAR Prediction Reporting Format (QPRF) is a harmonised template for summari
 
 h3. Download
 
-You can download the latest version of Q-edit from "this link":http://10.8.0.1/index.php/blog/78-q-edit.
+You can download the latest version of Q-edit from "this link":http://opentox.ntua.gr/index.php/blog/78-q-edit#download.
 
 h3. Documentation
 
-Documentation can be found online "here":http://10.8.0.1/index.php/blog/78-q-edit. There you'll find instructions on how to install and use Q-edit.
+Documentation can be found online "here":http://opentox.ntua.gr/index.php/blog/78-q-edit. There you'll find instructions on how to install and use Q-edit.
 
 h3. Development
 
