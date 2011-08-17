@@ -17,4 +17,12 @@ h3. Documentation
 
 Documentation can be found online "here":http://10.8.0.1/index.php/blog/78-q-edit.
 
+h3. Development
 
+If you're a developer and you need to either compile Q-edit on your own, inspect or modidy the source code, then clone this project using the following command:
+
+@@
+git clone git://github.com/alphaville/Q-edit.git
+@@
+
+and then download the necessary dependencies from "this link":http://opentox.ntua.gr/files/lib.zip.
