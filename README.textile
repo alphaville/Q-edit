@@ -1,10 +1,17 @@
 h1. Q-edit
 
+h3. General
 |/2.Developers| "Pantelis Sopasakis":http://gr.linkedin.com/in/sopasakis     |
 |Charalambos Chomenides |
 |Master Project|"OpenTox":http://opentox.org |
-|Vendor    |"National Technical University of Athens":http://www.ntua.gr|
+|Vendor    |"National Technical University of Athens":http://www.ntua.gr/index_en.html|
 |Version|1.0.18|
 |Programming Lang. | Java |
+
+h3. Download
+You can download the latest version of Q-edit from "this link":http://10.8.0.1/index.php/blog/78-q-edit.
+
+h3. Documentation
+Documentation can be found online "here":http://10.8.0.1/index.php/blog/78-q-edit.
 
 
